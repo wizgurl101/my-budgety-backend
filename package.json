@@ -20,6 +20,8 @@
   "dependencies": {
     "@google-cloud/bigquery": "^7.3.0",
     "@google-cloud/bigquery-connection": "^3.0.1",
+    "@google-cloud/secret-manager": "^5.0.1",
+    "dotenv": "^16.4.1",
     "express": "^4.17.1"
   }
 }
