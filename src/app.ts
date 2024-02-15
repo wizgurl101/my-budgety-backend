@@ -1,20 +1,18 @@
+import { getSecret } from "./services/secretsService";
+
 import express from "express";
 import * as dotenv from "dotenv";
 dotenv.config();
 
-// Now you can use process.env.GOOGLE_APPLICATION_CREDENTIALS
-
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 5000;
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
+app.get("/test-secret", async (req, res) => {
+  console.log("GET /test-secret");
+  await getSecret(process.env.TEST_SECRET_NAME || "");
+  res.send("Get test secret from Secret Manager successfully!");
 });
 
 app.listen(port, () => {
-  return console.log(
-    `Express is listening at http://localhost:${
-      process.env.PORT || port
-    } and secret is ${process.env.TEST}`
-  );
+  return console.log(`Express is listening at http://localhost:${port}`);
 });

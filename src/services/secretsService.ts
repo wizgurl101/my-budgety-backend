@@ -1,12 +1,20 @@
 import { SecretManagerServiceClient } from "@google-cloud/secret-manager";
+import dotenv from "dotenv";
 
-export async function accessSecretVersion() {
+// type SecretResponse = {};
+
+export async function getSecret(secretName: string) {
   const client = new SecretManagerServiceClient();
 
-  const [version] = await client.accessSecretVersion({
-    name: "projects/my-project/secrets/my-secret/versions/latest",
-  });
+  try {
+    const [version] = await client.accessSecretVersion({
+      name: `${secretName}/versions/latest`,
+    });
 
-  // Extract the payload as a string.
-  const payload = version.payload.data.toString();
+    const payload = version.payload.data.toString();
+    console.log(`Test Payload: ${payload}`);
+  } catch (error) {
+    console.error("Error accessing secret version", error);
+    console.log("The secret was not found.");
+  }
 }
