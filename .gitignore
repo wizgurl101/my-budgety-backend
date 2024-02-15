@@ -130,5 +130,6 @@ dist
 .pnp.*
 
 *.test
-/node-util-app/testData
-/node-util-app/output
+.env.*
+dist/
+json/
