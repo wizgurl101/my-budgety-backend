@@ -132,4 +132,4 @@ dist
 *.test
 .env.*
 dist/
-.json/
+json/
