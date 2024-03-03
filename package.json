@@ -4,6 +4,7 @@
   "description": "",
   "main": "dist/app.js",
   "scripts": {
+    "build": "tsc",
     "program": "tsc && node dist/app.js",
     "linter": "npx eslint . --ext .ts"
   },
