@@ -133,3 +133,5 @@ dist
 .env.*
 dist/
 json/
+
+.idea/
