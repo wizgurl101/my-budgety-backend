@@ -1,11 +1,32 @@
 import express from "express";
 import * as dotenv from "dotenv";
+import swaggerUI from "swagger-ui-express";
+import swaggerJsDoc from "swagger-jsdoc";
 
 import userRoutes from "./routes/userRoutes";
 
 dotenv.config();
 
 const app = express();
+
+const swaggerOptions = {
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "My Budget API Documentation",
+      version: "1.0.0",
+      description: "My Budget Backend API",
+    },
+    servers: [
+      {
+        url: "http://localhost:5000",
+      },
+    ],
+  },
+  apis: ["./src/routes/userRoutes.ts"], // Path to your API routes
+};
+const swaggerSpecs = swaggerJsDoc(swaggerOptions);
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerSpecs));
 
 app.use("/my-budget/api/v1/users", userRoutes);
 
