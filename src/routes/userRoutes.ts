@@ -6,7 +6,7 @@ const router = express.Router();
 // todo For testing purpose delete later
 /**
  * @swagger
- * /posts:
+ * /my-budget/api/v1/users/test:
  *   get:
  *     summary: Get Test User Endpoint
  *     description: Successfully call this endpoint
