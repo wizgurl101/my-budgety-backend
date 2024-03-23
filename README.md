@@ -1,4 +1,4 @@
-# My Budget Web Application Backend
+# My Budgety Web Application Backend
 
 ## Prerequisites
 
