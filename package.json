@@ -6,16 +6,23 @@
   "scripts": {
     "build": "tsc",
     "program": "tsc && node dist/app.js",
-    "linter": "npx eslint . --ext .ts"
+    "linter": "npx eslint . --ext .ts",
+    "test": "mocha -r ts-node/register tests/**/*.spec.ts",
+    "test-single": "mocha -r ts-node/register"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/chai": "^4.3.0",
     "@types/express": "^4.17.1",
+    "@types/mocha": "^10.0.6",
     "@typescript-eslint/eslint-plugin": "^6.7.4",
     "@typescript-eslint/parser": "^6.7.4",
+    "chai": "^4.3.4",
     "eslint": "^8.51.0",
+    "mocha": "^10.4.0",
+    "ts-node": "^10.9.2",
     "typescript": "^5.2.2"
   },
   "dependencies": {
@@ -24,6 +31,7 @@
     "@google-cloud/secret-manager": "^5.0.1",
     "dotenv": "^16.4.1",
     "express": "^4.17.1",
+    "save-dev": "^0.0.1-security",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.0"
   }

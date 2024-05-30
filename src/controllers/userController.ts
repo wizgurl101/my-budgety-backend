@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { executeQuery } from "../db/bigquery";
+import { executeUserQuery } from "../db/bigquery";
 
 // todo For testing purpose delete later
 export const testUser = (req: Request, res: Response) => {
@@ -11,7 +11,7 @@ export const testUser = (req: Request, res: Response) => {
 
 export const GetUser = async (req: Request, res: Response) => {
   try {
-    await executeQuery();
+    await executeUserQuery();
     return  res.status(200).json({
       status: "success",
       message: "Get User data was successfully fetched",
@@ -23,5 +23,9 @@ export const GetUser = async (req: Request, res: Response) => {
       message: "Internal Server Error",
     });
   }
+
+}
+
+export const GetCurrentMonthSumExpanse = async (req: Request, res: Response) => {
 
 }
