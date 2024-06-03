@@ -1,5 +1,5 @@
 import express from "express";
-import { testUser, GetUser } from "../controllers/userController";
+import { testUser, GetUser, GetAllKeywords } from "../controllers/userController";
 
 const router = express.Router();
 
@@ -44,5 +44,7 @@ router.get("/test", testUser)
  *               Message: string
  */
 router.get("/user", GetUser)
+
+router.get("/user/keywords/:userId", GetAllKeywords)
 
 export default router;

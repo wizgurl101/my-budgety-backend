@@ -24,8 +24,40 @@ export const executeGetCurrentExpanse = async (userId: string) => {
         query: query,
     };
 
-    const [job] = await bigquery.createQueryJob(options);
-    const [rows] = await job.getQueryResults();
+    try {
+        const [job] = await bigquery.createQueryJob(options);
+        const [rows] = await job.getQueryResults();
 
-    rows.forEach(row => console.log(row));
+        const queryResult = [];
+        rows.forEach(row => queryResult.push(row));
+        return queryResult;
+    }
+    catch (err) {
+        console.error(err);
+        return [];
+    }
+}
+
+export const executeGetAllKeywords = async (userId: string) => {
+    const query = `SELECT k.category_id, k.keyword_id, k.name
+                            FROM ${process.env.PROJECT_ID}.${process.env.PROJECT_NAME}.keywords k
+                            JOIN ${process.env.PROJECT_ID}.${process.env.PROJECT_NAME}.category c
+                            ON k.category_id = c.category_id
+                            WHERE k.user_id = ${userId}`;
+    const options = {
+        query: query,
+    };
+
+    try {
+        const [job] = await bigquery.createQueryJob(options);
+        const [rows] = await job.getQueryResults();
+
+        const queryResult = [];
+        rows.forEach(row => queryResult.push(row));
+        return queryResult;
+    }
+    catch (err) {
+        console.error(err);
+        return [];
+    }
 }
