@@ -34,8 +34,6 @@ export const GetCurrentMonthSumExpanse = async (req: Request, res: Response) => 
 export const GetAllKeywords = async (req: Request, res: Response) => {
     try {
         const userId = req.params.userId;
-        console.log('Get All User Keywords')
-        console.log(userId)
         const keywords = await executeGetAllKeywords(userId);
         return res.status(200).json({
           status: "success",
