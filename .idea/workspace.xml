@@ -6,7 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="ec3128f0-2803-4bb0-8238-d462bd0da48f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controllers/userController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/userController.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/bigquery.repository.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/bigquery.repository.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/userRoutes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/userRoutes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/services/database.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/database.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,24 +50,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;get-keywords-api&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/nbpha/Documents/current-personal-projects/my-budget/my-budget-backend&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\nbpha\\Documents\\current-personal-projects\\my-budgety\\my-budgety-backend\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Node.js.server_app.executor": "Debug",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "refactor-to-use-dependency-injection",
+    "last_opened_file_path": "C:/Users/nbpha/Documents/current-personal-projects/my-budgety/my-budgety-backend/src/app.ts",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.standard": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.standard": "",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "C:\\Users\\nbpha\\Documents\\current-personal-projects\\my-budgety\\my-budgety-backend\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
+  <component name="RunManager" selected="Node.js.server_app">
+    <configuration name="app_debug" type="JavascriptDebugType">
+      <method v="2" />
+    </configuration>
+    <configuration name="server_app" type="NodeJSConfigurationType" path-to-js-file="src/app.ts" working-dir="$PROJECT_DIR$">
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="JavaScript Debug.app_debug" />
+      <item itemvalue="Node.js.server_app" />
+    </list>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -100,6 +117,9 @@
       <workItem from="1717204138741" duration="7584000" />
       <workItem from="1717215294466" duration="63000" />
       <workItem from="1717285853185" duration="2266000" />
+      <workItem from="1717516187661" duration="3963000" />
+      <workItem from="1717557055842" duration="1388000" />
+      <workItem from="1717601822600" duration="7501000" />
     </task>
     <servers />
   </component>
@@ -111,15 +131,9 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/controllers/userController.ts</url>
-          <line>35</line>
+          <line>56</line>
           <properties lambdaOrdinal="-1" />
           <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="javascript">
-          <url>file://$PROJECT_DIR$/src/db/bigquery.ts</url>
-          <line>41</line>
-          <properties lambdaOrdinal="-1" />
-          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
