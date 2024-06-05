@@ -2,15 +2,6 @@ import { Request, Response } from "express";
 import DatabaseService from "../services/database.service";
 import { BigQueryDatabase} from "../repository/bigquery.repository";
 
-// todo For testing purpose delete later
-export const testUser = (req: Request, res: Response) => {
-    console.log('Test User Called');
-    return res.status(200).json({
-    status: "success",
-    message: "Test User works",
-  });
-};
-
 // TODO need to re-implement this function to return user with user id, currently using this for testing
 export const GetUser = async (req: Request, res: Response) => {
   try {
@@ -37,6 +28,7 @@ export const GetUser = async (req: Request, res: Response) => {
 export const GetCurrentMonthSumExpanse = async (req: Request, res: Response) => {
   //todo finish implementation -- check query if it return the correct data
     try {
+        const userId = req.params.userId;
         const BigQuery = new BigQueryDatabase();
         const database = new DatabaseService(BigQuery);
         const query = `SELECT * FROM ${process.env.PROJECT_ID}.${process.env.PROJECT_NAME}.expanse 
@@ -62,16 +54,16 @@ export const GetAllKeywords = async (req: Request, res: Response) => {
         const userId = req.params.userId;
         const BigQuery = new BigQueryDatabase();
         const database = new DatabaseService(BigQuery);
-        const query = `SELECT k.category_id, k.keyword_id, k.name
-                            FROM ${process.env.PROJECT_ID}.${process.env.PROJECT_NAME}.keywords k
-                            JOIN ${process.env.PROJECT_ID}.${process.env.PROJECT_NAME}.category c
-                            ON k.category_id = c.category_id
-                            WHERE k.user_id = ${userId}`;
+        const query = `SELECT k.category_id, k.keyword_id, k.name, c.user_id `
+                            + `FROM ${process.env.PROJECT_ID}.${process.env.PROJECT_NAME}.keywords k `
+                            + `JOIN ${process.env.PROJECT_ID}.${process.env.PROJECT_NAME}.category c `
+                            + `ON k.category_id = c.category_id `
+                            + `WHERE user_id = '${userId}'`;
+
 
         const keywords = await database.query(query);
         return res.status(200).json({
           status: "success",
-          message: "Keywords successfully fetched",
           data: keywords,
         });
     } catch (err) {

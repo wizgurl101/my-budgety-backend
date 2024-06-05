@@ -5,21 +5,33 @@ const bigqueryRepository = new BigQuery({
     keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS
 });
 
+type optionsType = {
+    query: string;
+};
+
+//todo define the type of the query result from bigquery
+
 export interface Database {
-    query(query: string): any;
+    query(query: string): Promise<any>;
 }
 
 export class BigQueryDatabase implements Database {
-    query(query: string): any {
-        const options = {
+    async query(query: string): Promise<any> {
+        const options: optionsType = {
             query: query,
         };
 
-        const [job] = await bigqueryRepository.createQueryJob(options);
-        const [rows] = await job.getQueryResults();
-        const queryResult = [];
+        try {
+            const [job] = await bigqueryRepository.createQueryJob(options);
+            const [rows] = await job.getQueryResults();
+            const queryResult = [];
 
-        rows.forEach(row => queryResult.push(row));
-        return queryResult;
+            rows.forEach(row => queryResult.push(row));
+            return queryResult;
+        } catch(err) {
+            // todo add logger
+            console.error(err);
+            return []
+        }
     }
 }

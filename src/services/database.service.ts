@@ -7,7 +7,7 @@ export default class DatabaseService {
         this.database = database;
     }
 
-    async query(query: string): any {
+    async query(query: string): Promise<any> {
         return this.database.query(query);
     }
 }
