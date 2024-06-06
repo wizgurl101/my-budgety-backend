@@ -7,7 +7,7 @@
     "build": "tsc",
     "program": "node dist/src/app.js",
     "linter": "npx eslint . --ext .ts",
-    "test": "mocha -r ts-node/register tests/**/*.spec.ts",
+    "tests": "mocha -r ts-node/register tests/**/*.spec.ts",
     "test-single": "mocha -r ts-node/register"
   },
   "keywords": [],
