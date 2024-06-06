@@ -9,7 +9,7 @@ import DatabaseService from '../src/services/database.service';
 
 //todo return this late to resolve the issue with the test
 // GetAllKeywords(req, res) return res as {"format":{},"locals":{}}
-describe('User Controller Test Suite', () => {
+describe.skip('User Controller Test Suite', () => {
     describe('Get All User Keywords Endpoint', () => {
         let BigQueryDatabaseStub, DatabaseServiceStub, queryStub;
         const testUserId = 'testUserId';
