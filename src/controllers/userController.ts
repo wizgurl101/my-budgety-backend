@@ -7,44 +7,51 @@ export const GetUser = async (req: Request, res: Response) => {
   try {
       const BigQuery = new BigQueryDatabase();
       const database = new DatabaseService(BigQuery);
-      const query = `SELECT * FROM ${process.env.PROJECT_ID}.${process.env.PROJECT_NAME}.users LIMIT 1000`;
+      const query = `SELECT * FROM ${process.env.PROJECT_ID}.${process.env.PROJECT_NAME}.users`;
       const usersData = await database.query(query);
 
-      return  res.status(200).json({
-          status: "success",
-          message: "Get User data was successfully fetched",
-          data: usersData,
+      return  res
+          .status(200)
+          .json({
+              status: "success",
+              message: "Get User data was successfully fetched",
+              data: usersData,
     });
   }  catch(err) {
     console.error(err)
-    return res.status(500).json({
+    return res
+        .status(500)
+        .json({
           status: "error",
           message: "Internal Server Error",
     });
   }
-
 }
 
 export const GetCurrentMonthSumExpanse = async (req: Request, res: Response) => {
-  //todo finish implementation -- check query if it return the correct data
+  //todo finish implementation -- check query if it return the correct data where expense for the current month is returned
     try {
         const userId = req.params.userId;
         const BigQuery = new BigQueryDatabase();
         const database = new DatabaseService(BigQuery);
-        const query = `SELECT * FROM ${process.env.PROJECT_ID}.${process.env.PROJECT_NAME}.expanse 
-                            WHERE user_id = ${userId} AND MONTH(date) = MONTH(CURRENT_DATE()) LIMIT 1000`;
-        const expanceData = await database.query(query);
+        const query = `SELECT * FROM ${process.env.PROJECT_ID}.${process.env.PROJECT_NAME}.expanse `
+                            + `WHERE user_id = ${userId} `;
+        const expanseData = await database.query(query);
 
-        return res.status(200).json({
-            status: "success",
-            message: "Get current month expanse data was successfully fetched",
-            data: expanceData,
+        return res
+            .status(200)
+            .json({
+                status: "success",
+                message: "Get current month expanse data was successfully fetched",
+                data: expanseData,
         });
     } catch (err) {
         console.error(err);
-        return res.status(500).json({
-          status: "error",
-          message: "Internal Server Error",
+        return res
+            .status(500)
+            .json({
+              status: "error",
+              message: "Internal Server Error",
         });
     }
 }
@@ -59,18 +66,21 @@ export const GetAllKeywords = async (req: Request, res: Response) => {
                             + `JOIN ${process.env.PROJECT_ID}.${process.env.PROJECT_NAME}.category c `
                             + `ON k.category_id = c.category_id `
                             + `WHERE user_id = '${userId}'`;
-
-
         const keywords = await database.query(query);
-        return res.status(200).json({
-          status: "success",
-          data: keywords,
+
+        return res
+            .status(200)
+            .json({
+              status: "success",
+              data: keywords,
         });
     } catch (err) {
         console.error(err);
-        return res.status(500).json({
-          status: "error",
-          message: "Internal Server Error",
+        return res
+            .status(500)
+            .json({
+              status: "error",
+              message: "Internal Server Error",
         });
     }
 }
