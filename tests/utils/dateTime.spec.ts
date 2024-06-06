@@ -4,8 +4,9 @@ import { GetDateOfFirstDayOfCurrentMonth } from '../../src/utils/dateTime'
 
 describe('DateTime Test Suite', () => {
     describe('Get Date Of First Day Of Current Month function', () => {
-        it('Given the current month is May 2024, when the function is called, then it should return 2024-05-01', () => {
-            const expected = '2024-05-01';
+        it('Given the current date, when the function is called, then it should return current year - month - 1st', () => {
+            const date = new Date();
+            const expected = `${date.getFullYear()}-0${date.getMonth() + 1}-01`;
             const result = GetDateOfFirstDayOfCurrentMonth();
             expect(result).to.equal(expected);
         })

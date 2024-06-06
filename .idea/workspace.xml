@@ -5,12 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ec3128f0-2803-4bb0-8238-d462bd0da48f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/tests/userController.spec.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/controllers/userController.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/userController.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repository/bigquery.repository.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/bigquery.repository.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/userRoutes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/userRoutes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/services/database.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/services/database.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/utils/dateTime.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/tests/utils/dateTime.spec.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +55,7 @@
     "Node.js.server_app.executor": "Debug",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "refactor-to-use-dependency-injection",
+    "git-widget-placeholder": "add-unit-test-and-github-actions",
     "last_opened_file_path": "C:/Users/nbpha/Documents/current-personal-projects/my-budgety/my-budgety-backend/src/app.ts",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.standard": "true",
@@ -131,8 +131,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/controllers/userController.ts</url>
-          <line>56</line>
-          <properties lambdaOrdinal="-1" />
+          <line>63</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
