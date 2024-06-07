@@ -5,9 +5,6 @@ import swaggerJsDoc from "swagger-jsdoc";
 
 import userRoutes from "./routes/userRoutes";
 
-const testing = 'I love hello kitty'
-console.log(testing)
-
 dotenv.config();
 
 const app = express();
