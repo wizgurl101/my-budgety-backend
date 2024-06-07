@@ -26,7 +26,7 @@ const swaggerOptions = {
       },
     ],
   },
-  apis: ["./src/routes/userRoutes.ts"], // Path to your API routes
+  apis: ["./src/routes/userRoutes.ts"],
 };
 const swaggerSpecs = swaggerJsDoc(swaggerOptions);
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerSpecs));
