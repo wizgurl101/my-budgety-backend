@@ -10,7 +10,7 @@ const router = express.Router();
  *     summary: Get User Data Endpoint
  *     description: Successfully call this endpoint
  *     responses:
- *       200:
+ *       200
  *         description: Successful response
  *         content:
  *           application/json:

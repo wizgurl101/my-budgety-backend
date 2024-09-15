@@ -4,6 +4,7 @@ import swaggerUI from "swagger-ui-express";
 import swaggerJsDoc from "swagger-jsdoc";
 
 import userRoutes from "./routes/userRoutes";
+import categoryKeywordRoutes from "./routes/categoryKeywordRoutes";
 
 dotenv.config();
 
@@ -29,6 +30,7 @@ const swaggerSpecs = swaggerJsDoc(swaggerOptions);
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerSpecs));
 
 app.use("/my-budget/api/v1/users", userRoutes);
+app.use("/my-budget/api/v1/categoryKeyword", categoryKeywordRoutes);
 
 const port = process.env.PORT || 5000;
 

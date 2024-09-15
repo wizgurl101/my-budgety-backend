@@ -19,5 +19,5 @@ Before you begin, ensure you have Docker installed on your machine. If not, you 
    After the image has been built, you can run it as a container with the following command:
 
    ```bash
-   docker run -p 8000:3000 my-budget-backend:latest
+   docker run -p 5000:5000 my-budget-backend:latest
    ```
