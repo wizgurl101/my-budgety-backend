@@ -25,6 +25,7 @@
     "sinon": "^18.0.0",
     "sinon-express-mock": "^2.2.1",
     "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
     "typescript": "^5.2.2"
   },
   "dependencies": {
