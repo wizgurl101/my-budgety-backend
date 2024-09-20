@@ -20,6 +20,7 @@ export const GetAllCategories = async (req: Request, res: Response) => {
                 data: categoriesData,
         });
     } catch (err) {
+        //todo add in logging for errors
         console.error(err);
         return res
             .status(500)
@@ -49,12 +50,65 @@ export const addNewCategory = async (req: Request, res: Response) => {
                 message: "Add new category was successfully"
             });
     } catch (err) {
-        console.error(err);
         return res
             .status(500)
             .json({
               status: "error",
               message: "Unable to add new category",
         });
+    }
+}
+
+export const deleteCategory = async (req: Request, res: Response) => {
+    try {
+        const userId = req.params.userId;
+        const categoryID = req.body.categoryId;
+        const BigQuery = new BigQueryDatabase();
+        const database = new DatabaseService(BigQuery);
+        const query = `DELETE FROM ${process.env.PROJECT_ID}.${process.env.PROJECT_NAME}.category `
+            + `WHERE user_id = '${userId}' AND category_id = '${categoryID}'`;
+        await database.query(query);
+
+        return res
+            .status(200)
+            .json({
+                status: "success",
+                message: "Delete category was successfully"
+            });
+    } catch (err) {
+        return res
+            .status(500)
+            .json({
+                status: "error",
+                message: "Unable to delete category",
+            });
+    }
+}
+
+export const updateCategory = async (req: Request, res: Response) => {
+    try {
+        const userId = req.params.userId;
+        const categoryID = req.body.categoryId;
+        const newName = req.body.name;
+        const BigQuery = new BigQueryDatabase();
+        const database = new DatabaseService(BigQuery);
+        const query = `UPDATE ${process.env.PROJECT_ID}.${process.env.PROJECT_NAME}.category `
+            + `SET name = '${newName}' `
+            + `WHERE user_id = '${userId}' AND category_id = '${categoryID}'`;
+        await database.query(query);
+
+        return res
+            .status(200)
+            .json({
+                status: "success",
+                message: "Update category was successfully"
+            });
+    } catch (err) {
+        return res
+            .status(500)
+            .json({
+                status: "error",
+                message: "Unable to update category",
+            });
     }
 }
