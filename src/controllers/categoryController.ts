@@ -38,7 +38,7 @@ export const addNewCategory = async (req: Request, res: Response) => {
         const BigQuery = new BigQueryDatabase();
         const database = new DatabaseService(BigQuery);
         const query = `INSERT INTO ${process.env.PROJECT_ID}.${process.env.PROJECT_NAME}.category `
-            + `(category_id, user_id, category_name) VALUES `
+            + `(category_id, user_id, name) VALUES `
             + `('${categoryID}', '${userId}', '${categoryName}')`;
         await database.query(query);
 
