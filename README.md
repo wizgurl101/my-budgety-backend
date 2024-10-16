@@ -13,8 +13,25 @@ Before you begin, ensure you have Docker installed on your machine. If not, you 
    ```bash
    docker build -t my-budget-backend .
    ```
+2. **Setup GCP service user credentials locally**
 
-2. **Run the Docker container**
+   Application Default Credentials (ADC)
+   ```bash
+   gcloud auth application-default login
+   ```
+
+   ```bash
+   
+      ADC=~/.config/gcloud/application_default_credentials.json \
+         docker run \
+         <YOUR PARAMS> \
+         -e GOOGLE_APPLICATION_CREDENTIALS=/tmp/keys/FILE_NAME.json \
+         -v ${ADC}:/tmp/keys/FILE_NAME.json:ro \
+         <IMAGE_URL>
+
+   ```
+
+3. **Run the Docker container**
 
    After the image has been built, you can run it as a container with the following command:
 
