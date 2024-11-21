@@ -5,7 +5,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /my-budget/api/v1/users/user:
+ * /my-budgety/api/v1/users/user:
  *   get:
  *     summary: Get User Data Endpoint
  *     description: Successfully call this endpoint
@@ -37,7 +37,7 @@ router.get("/user", GetUser)
 
 /**
  * @swagger
- * /my-budget/api/v1/users/{userId}/keywords:
+ * /my-budgety/api/v1/users/{userId}/keywords:
  *   get:
  *     summary: Get all User's keywords
  *     description: Get all the entries in the keywords table for a specific user

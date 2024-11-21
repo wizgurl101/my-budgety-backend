@@ -5,7 +5,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /my-budget/api/v1/category/{userId}:
+ * /my-budgety/api/v1/category/{userId}:
  *   get:
  *     summary: Get all categories for a user
  *     description: Retrieve a list of all categories for a specific user
