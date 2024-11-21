@@ -31,8 +31,8 @@ const swaggerOptions = {
 const swaggerSpecs = swaggerJsDoc(swaggerOptions);
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerSpecs));
 
-app.use("/my-budget/api/v1/users", userRoutes);
-app.use("/my-budget/api/v1/category", categoryRoutes);
+app.use("/my-budgety/api/v1/users", userRoutes);
+app.use("/my-budgety/api/v1/category", categoryRoutes);
 
 const port = process.env.PORT || 5000;
 
