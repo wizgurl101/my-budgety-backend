@@ -16,9 +16,9 @@ const swaggerOptions = {
   definition: {
     openapi: "3.0.0",
     info: {
-      title: "My Budget API Documentation",
+      title: "My Budgety API Documentation",
       version: "1.0.0",
-      description: "My Budget Backend API",
+      description: "My Budgety Backend API",
     },
     servers: [
       {
@@ -26,7 +26,7 @@ const swaggerOptions = {
       },
     ],
   },
-  apis: ["./src/routes/userRoutes.ts"],
+  apis: ["./src/routes/userRoutes.ts", "./src/routes/categoryRoutes.ts"],
 };
 const swaggerSpecs = swaggerJsDoc(swaggerOptions);
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerSpecs));

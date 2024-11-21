@@ -38,3 +38,10 @@ Before you begin, ensure you have Docker installed on your machine. If not, you 
    ```bash
    docker run -p 5000:5000 my-budget-backend:latest
    ```
+## Using Swagger UI to see API endpoints
+
+1. Run project in dev mode
+   ```bash
+   npm run program
+   ```
+2. Open your browser and navigate to `http://localhost:5000/api-docs`

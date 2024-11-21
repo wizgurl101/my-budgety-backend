@@ -27,6 +27,28 @@ const router = express.Router();
  */
 router.get("/user", GetUser)
 
+/**
+ * @swagger
+ * /my-budget/api/v1/users/userId/keywords:
+ *   get:
+ *     summary: Get all User's keywords
+ *     description: Get all the entries in the keywords table for a specific user
+ *     responses:
+ *       200
+ *         description: Successful response
+ *         content:
+ *           application/json:
+ *             schema:
+ *               Status: string
+ *               Message: string
+ *        500:
+ *         description: Unsuccessful response
+ *         content:
+ *           application/json:
+ *             schema:
+ *               Status: string
+ *               Message: string
+ */
 router
     .route("/:userId/keywords")
     .get(GetAllKeywords)
