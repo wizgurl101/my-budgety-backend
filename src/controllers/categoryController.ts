@@ -8,7 +8,7 @@ export const GetAllCategories = async (req: Request, res: Response) => {
         const userId = req.params.userId;
         const BigQuery = new BigQueryDatabase();
         const database = new DatabaseService(BigQuery);
-        const query = `SELECT * FROM ${process.env.PROJECT_ID}.${process.env.PROJECT_NAME}.category `
+        const query = `SELECT ROW_NUMBER() OVER() AS id, category_id, name FROM ${process.env.PROJECT_ID}.${process.env.PROJECT_NAME}.category `
                                 + `WHERE user_id = '${userId}'`;
         const categoriesData = await database.query(query);
 
