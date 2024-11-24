@@ -2,6 +2,7 @@ import express from "express";
 import * as dotenv from "dotenv";
 import swaggerUI from "swagger-ui-express";
 import swaggerJsDoc from "swagger-jsdoc";
+import cors from "cors";
 
 import userRoutes from "./routes/userRoutes";
 import categoryRoutes from "./routes/categoryRoutes";
@@ -11,6 +12,8 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+//todo create this when deploying to production since this enable ALL CORS requests
+app.use(cors());
 
 const swaggerOptions = {
   definition: {

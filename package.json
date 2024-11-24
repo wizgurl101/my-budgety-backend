@@ -32,6 +32,8 @@
     "@google-cloud/bigquery": "^7.5.2",
     "@google-cloud/bigquery-connection": "^3.0.1",
     "@google-cloud/secret-manager": "^5.0.1",
+    "@types/cors": "^2.8.17",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.1",
     "express": "^4.17.1",
     "save-dev": "^0.0.1-security",
