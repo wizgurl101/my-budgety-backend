@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Put, Delete, Param, Body } from "@nestjs/common";
+import { Controller, Get, Post, Put, Delete, Param, Query } from "@nestjs/common";
 import { CategoryService } from "./category.service";
 
 @Controller('category')
@@ -12,7 +12,7 @@ export class CategoryController {
     }
 
     @Get()
-    async findAll(@Body() userId: string)
+    async findAll(@Query('userId') userId: string)
     {
         return this.categoryService.findAll(userId);
     }

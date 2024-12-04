@@ -30,7 +30,6 @@ export class CategoryService {
     {
         const query = `SELECT ROW_NUMBER() OVER() AS id, category_id, name FROM ${this.projectId}.${this.projectName}.category `
             + `WHERE user_id = '${userId}'`;
-
         try {
             return await this.bigQueryService.query(query);
         } catch (error) {
