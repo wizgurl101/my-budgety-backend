@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { BigQueryService } from '../db/bigQuery/bigquery.service';
 import { UuidService } from "../utils/uuid/uuid.service";
+import {BigQueryService} from "../db/bigQuery/bigquery.service";
 
 @Injectable()
-export class CategoryService
+export class KeywordService
 {
     private readonly projectId = this.configService.get<string>('PROJECT_ID')
     private readonly projectName = this.configService.get<string>('PROJECT_NAME')
@@ -14,43 +14,43 @@ export class CategoryService
                 private uuidService: UuidService) {
     }
 
-    async create(userId: string, categoryName: string)
+    async create(categoryId: string, name: string)
     {
-        const categoryId = this.uuidService.generate();
-        const query = `INSERT INTO ${this.projectId}.${this.projectName}.category `
-            + `(category_id, user_id, name) VALUES `
-            + `('${categoryId}', '${userId}', '${categoryName}')`;
+        const keywordId = this.uuidService.generate();
+        const query = `INSERT INTO ${this.projectId}.${this.projectName}.keywords `
+            + `(keyword_id, category_id, name) VALUES `
+            + `('${keywordId}', '${categoryId}', '${name}')`;
         try
         {
             await this.bigQueryService.query(query);
-            return "new category added"
+            return "new keyword added"
         } catch (error)
         {
             console.log(error)
-            return "failed to add new category"
+            return "failed to add new keyword"
         }
     }
 
-    async update(categoryId: string, updatedName: string)
+    async update(id: string, updatedName: string)
     {
-        const query = `UPDATE ${this.projectId}.${this.projectName}.category `
-        + `SET name = '${updatedName}' WHERE category_id = '${categoryId}'`;
+        const query = `UPDATE ${this.projectId}.${this.projectName}.keywords `
+            + `SET name = '${updatedName}' WHERE keyword_id = '${id}'`;
 
         try
         {
             await this.bigQueryService.query(query);
-            return "category updated"
+            return "keyword updated"
         } catch (error)
         {
             console.log(error)
-            return "failed to update category"
+            return "failed to update keyword"
         }
     }
 
     async findOne(id: string)
     {
-        const query = `SELECT category_id, name FROM ${this.projectId}.${this.projectName}.category `
-            + `WHERE category_id = '${id}'`;
+        const query = `SELECT name FROM ${this.projectId}.${this.projectName}.keywords `
+            + `WHERE keyword_id = '${id}'`;
         try
         {
             return await this.bigQueryService.query(query);
@@ -63,8 +63,12 @@ export class CategoryService
 
     async findAll(userId: string)
     {
-        const query = `SELECT ROW_NUMBER() OVER() AS id, category_id, name FROM ${this.projectId}.${this.projectName}.category `
+        const query = `SELECT ROW_NUMBER() OVER() AS id, k.category_id, k.keyword_id, k.name `
+            + `FROM ${this.projectId}.${this.projectName}.keywords k `
+            + `JOIN ${this.projectId}.${this.projectName}.category c `
+            + `ON k.category_id = c.category_id `
             + `WHERE user_id = '${userId}'`;
+
         try
         {
             return await this.bigQueryService.query(query);
@@ -74,19 +78,19 @@ export class CategoryService
         }
     }
 
-    async delete(categoryId: string)
+    async delete(id: string)
     {
-        const query = `DELETE FROM ${this.projectId}.${this.projectName}.category `
-            + `WHERE category_id = '${categoryId}'`;
+        const query = `DELETE FROM ${this.projectId}.${this.projectName}.keywords `
+            + `WHERE keyword_id = '${id}'`;
 
         try
         {
             await this.bigQueryService.query(query);
-            return "category deleted"
+            return "keyword deleted"
         } catch (error)
         {
             console.log(error)
-            return "failed to delete category"
+            return "failed to delete keyword"
         }
     }
 }
