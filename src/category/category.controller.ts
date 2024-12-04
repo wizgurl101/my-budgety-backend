@@ -12,9 +12,9 @@ export class CategoryController {
     }
 
     @Get()
-    async findAll()
+    async findAll(@Body() userId: string)
     {
-        return this.categoryService.findAll();
+        return this.categoryService.findAll(userId);
     }
 
     @Post()

@@ -1,9 +1,14 @@
 import {Injectable} from '@nestjs/common';
 import {ConfigService} from '@nestjs/config';
+import {BigQueryService} from '../db/bigQuery/bigquery.service';
 
 @Injectable()
 export class CategoryService {
-    constructor(private configService: ConfigService) {
+    private readonly projectId = this.configService.get<string>('PROJECT_ID')
+    private readonly projectName = this.configService.get<string>('PROJECT_NAME')
+
+    constructor(private configService: ConfigService,
+                private bigQueryService: BigQueryService) {
     }
 
     async create()
@@ -21,9 +26,17 @@ export class CategoryService {
         return this.configService.get<string>('PROJECT_NAME');
     }
 
-    async findAll()
+    async findAll(userId: string)
     {
-        return "all categories";
+        const query = `SELECT ROW_NUMBER() OVER() AS id, category_id, name FROM ${this.projectId}.${this.projectName}.category `
+            + `WHERE user_id = '${userId}'`;
+
+        try {
+            return await this.bigQueryService.query(query);
+        } catch (error) {
+            console.log(error);
+            return [];
+        }
     }
 
     async delete(id: string)
