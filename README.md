@@ -1,47 +1,33 @@
-# My Budgety Web Application Backend
+# My Budgety API
 
-## Prerequisites
+## Project setup
 
-Before you begin, ensure you have Docker installed on your machine. If not, you can download it from [Docker's official website](https://www.docker.com/products/docker-desktop).
+```bash
+$ npm install
+```
 
-## Dev Setup
+## Compile and run the project
 
-1. **Build the Docker image**
+```bash
+# development
+$ npm run start
 
-   Navigate to the project directory in your terminal and run the following command to build a Docker image for your project:
+# watch mode
+$ npm run start:dev
 
-   ```bash
-   docker build -t my-budget-backend .
-   ```
-2. **Setup GCP service user credentials locally**
+# production mode
+$ npm run start:prod
+```
 
-   Application Default Credentials (ADC)
-   ```bash
-   gcloud auth application-default login
-   ```
+## Run tests
 
-   ```bash
-   
-      ADC=~/.config/gcloud/application_default_credentials.json \
-         docker run \
-         <YOUR PARAMS> \
-         -e GOOGLE_APPLICATION_CREDENTIALS=/tmp/keys/FILE_NAME.json \
-         -v ${ADC}:/tmp/keys/FILE_NAME.json:ro \
-         <IMAGE_URL>
+```bash
+# unit tests
+$ npm run test
 
-   ```
+# e2e tests
+$ npm run test:e2e
 
-3. **Run the Docker container**
-
-   After the image has been built, you can run it as a container with the following command:
-
-   ```bash
-   docker run -p 5000:5000 my-budget-backend:latest
-   ```
-## Using Swagger UI to see API endpoints
-
-1. Run project in dev mode
-   ```bash
-   npm run program
-   ```
-2. Open your browser and navigate to `http://localhost:5000/api-docs`
+# test coverage
+$ npm run test:cov
+```
