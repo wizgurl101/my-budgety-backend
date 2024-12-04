@@ -1,6 +1,7 @@
-import {Injectable} from '@nestjs/common';
-import {ConfigService} from '@nestjs/config';
-import {BigQueryService} from '../db/bigQuery/bigquery.service';
+import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { BigQueryService } from '../db/bigQuery/bigquery.service';
+import { UuidService } from "../utils/uuid/uuid.service";
 
 @Injectable()
 export class CategoryService {
@@ -8,12 +9,23 @@ export class CategoryService {
     private readonly projectName = this.configService.get<string>('PROJECT_NAME')
 
     constructor(private configService: ConfigService,
-                private bigQueryService: BigQueryService) {
+                private bigQueryService: BigQueryService,
+                private uuidService: UuidService) {
     }
 
-    async create()
+    async create(userId: string, categoryName: string)
     {
-        return "new category";
+        const categoryId = this.uuidService.generate();
+        const query = `INSERT INTO ${this.projectId}.${this.projectName}.category `
+            + `(category_id, user_id, name) VALUES `
+            + `('${categoryId}', '${userId}', '${categoryName}')`;
+        try{
+            await this.bigQueryService.query(query);
+            return "new category added"
+        } catch (error) {
+            console.log(error)
+            return "failed to add new category"
+        }
     }
 
     async update()
@@ -23,7 +35,14 @@ export class CategoryService {
 
     async findOne(id: string)
     {
-        return this.configService.get<string>('PROJECT_NAME');
+        const query = `SELECT ROW_NUMBER() OVER() AS id, category_id, name FROM ${this.projectId}.${this.projectName}.category `
+            + `WHERE category_id = '${id}'`;
+        try {
+            return await this.bigQueryService.query(query);
+        } catch (error) {
+            console.log(error);
+            return [];
+        }
     }
 
     async findAll(userId: string)

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Put, Delete, Param, Query } from "@nestjs/common";
+import { Controller, Get, Post, Put, Delete, Param, Query, Body } from "@nestjs/common";
 import { CategoryService } from "./category.service";
 
 @Controller('category')
@@ -18,9 +18,9 @@ export class CategoryController {
     }
 
     @Post()
-    async create()
+    async create(@Body('userId') userId: string, @Body('categoryName') categoryName: string)
     {
-        return this.categoryService.create();
+        return this.categoryService.create(userId, categoryName);
     }
 
     @Put(':id')
