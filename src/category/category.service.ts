@@ -49,7 +49,7 @@ export class CategoryService
 
     async findOne(id: string)
     {
-        const query = `SELECT category_id, name FROM ${this.projectId}.${this.projectName}.category `
+        const query = `SELECT  category_id, name FROM ${this.projectId}.${this.projectName}.category `
             + `WHERE category_id = '${id}'`;
         try
         {
