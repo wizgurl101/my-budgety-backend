@@ -18,15 +18,16 @@ export class CategoryController {
     }
 
     @Post()
-    async create(@Body('userId') userId: string, @Body('categoryName') categoryName: string)
+    async create(@Body('userId') userId: string,
+                 @Body('categoryName') categoryName: string)
     {
         return this.categoryService.create(userId, categoryName);
     }
 
     @Put(':id')
-    async update(@Param('id') id: string)
+    async update(@Param('id') categoryId: string,@Body('updatedName') updatedName: string,)
     {
-        return this.categoryService.update();
+        return this.categoryService.update(categoryId, updatedName);
     }
 
     @Delete(':id')

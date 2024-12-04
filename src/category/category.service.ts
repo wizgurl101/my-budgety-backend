@@ -28,9 +28,18 @@ export class CategoryService {
         }
     }
 
-    async update()
+    async update(categoryId: string, updatedName: string)
     {
-        return "update category";
+        const query = `UPDATE ${this.projectId}.${this.projectName}.category `
+        + `SET name = '${updatedName}' WHERE category_id = '${categoryId}'`;
+
+        try{
+            await this.bigQueryService.query(query);
+            return "category updated"
+        } catch (error) {
+            console.log(error)
+            return "failed to update category"
+        }
     }
 
     async findOne(id: string)
