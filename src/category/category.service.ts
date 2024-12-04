@@ -4,7 +4,8 @@ import { BigQueryService } from '../db/bigQuery/bigquery.service';
 import { UuidService } from "../utils/uuid/uuid.service";
 
 @Injectable()
-export class CategoryService {
+export class CategoryService
+{
     private readonly projectId = this.configService.get<string>('PROJECT_ID')
     private readonly projectName = this.configService.get<string>('PROJECT_NAME')
 
@@ -19,10 +20,12 @@ export class CategoryService {
         const query = `INSERT INTO ${this.projectId}.${this.projectName}.category `
             + `(category_id, user_id, name) VALUES `
             + `('${categoryId}', '${userId}', '${categoryName}')`;
-        try{
+        try
+        {
             await this.bigQueryService.query(query);
             return "new category added"
-        } catch (error) {
+        } catch (error)
+        {
             console.log(error)
             return "failed to add new category"
         }
@@ -33,10 +36,12 @@ export class CategoryService {
         const query = `UPDATE ${this.projectId}.${this.projectName}.category `
         + `SET name = '${updatedName}' WHERE category_id = '${categoryId}'`;
 
-        try{
+        try
+        {
             await this.bigQueryService.query(query);
             return "category updated"
-        } catch (error) {
+        } catch (error)
+        {
             console.log(error)
             return "failed to update category"
         }
@@ -46,9 +51,11 @@ export class CategoryService {
     {
         const query = `SELECT ROW_NUMBER() OVER() AS id, category_id, name FROM ${this.projectId}.${this.projectName}.category `
             + `WHERE category_id = '${id}'`;
-        try {
+        try
+        {
             return await this.bigQueryService.query(query);
-        } catch (error) {
+        } catch (error)
+        {
             console.log(error);
             return [];
         }
@@ -58,7 +65,8 @@ export class CategoryService {
     {
         const query = `SELECT ROW_NUMBER() OVER() AS id, category_id, name FROM ${this.projectId}.${this.projectName}.category `
             + `WHERE user_id = '${userId}'`;
-        try {
+        try
+        {
             return await this.bigQueryService.query(query);
         } catch (error) {
             console.log(error);
@@ -66,8 +74,19 @@ export class CategoryService {
         }
     }
 
-    async delete(id: string)
+    async delete(categoryId: string)
     {
-        return "delete category";
+        const query = `DELETE FROM ${this.projectId}.${this.projectName}.category `
+            + `WHERE category_id = '${categoryId}'`;
+
+        try
+        {
+            await this.bigQueryService.query(query);
+            return "category deleted"
+        } catch (error)
+        {
+            console.log(error)
+            return "failed to delete category"
+        }
     }
 }

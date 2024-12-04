@@ -25,14 +25,15 @@ export class CategoryController {
     }
 
     @Put(':id')
-    async update(@Param('id') categoryId: string,@Body('updatedName') updatedName: string,)
+    async update(@Param('id') categoryId: string,
+                 @Body('updatedName') updatedName: string,)
     {
         return this.categoryService.update(categoryId, updatedName);
     }
 
     @Delete(':id')
-    async delete(@Param('id') id: string)
+    async delete(@Param('id') categoryId: string)
     {
-        return "delete category";
+        return this.categoryService.delete(categoryId);
     }
 }
