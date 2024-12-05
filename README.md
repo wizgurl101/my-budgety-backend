@@ -1,25 +1,35 @@
 # My Budgety API
 
-## Project setup
+My Budgety API is my personal project to help me manage my monthly budget.
+In addition, to help me learn and practice the NestJS framework and typescript.
 
-```bash
-$ npm install
-```
+## Dev Setup
 
-## Compile and run the project
+### Add a .env file to the root folder of the project with the following content:
+
+- GOOGLE_APPLICATION_CREDENTIALS="{unknown}"
+- PROJECT_ID="{unknown}"
+- PROJECT_NAME="{unknown}"
+
+Only I should have access to this these values :D 
+
+## Compile and run project in dev mode
 
 ```bash
 # development
 $ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
 ```
 
-## Run tests
+## API Documentation
+
+### Run the project
+```bash
+$ npm run start
+```
+
+### Open the browser and go to the following URL: http://localhost:3000/api-doc
+
+## How to run the tests
 
 ```bash
 # unit tests
