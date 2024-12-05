@@ -79,6 +79,6 @@ describe('CategoryService ', () => {
 
     //todo remove after testing github action
     it("test github action", () => {
-        expect(1).toBe(2);
+        expect(1).toBe(1);
     })
 });
