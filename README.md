@@ -27,7 +27,7 @@ $ npm run start
 $ npm run start
 ```
 
-### Open the browser and go to the following URL: http://localhost:3000/api-doc
+### Open the browser and go to the following URL: http://localhost:5000/api-doc
 
 ## How to run the tests
 
