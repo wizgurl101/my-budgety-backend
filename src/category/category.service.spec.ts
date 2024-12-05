@@ -76,9 +76,4 @@ describe('CategoryService ', () => {
         const result = await categoryService.findOne('1');
         expect(result).toEqual({ category_id: '1', name: 'victorXjayce' });
     });
-
-    //todo remove after testing github action
-    it("test github action", () => {
-        expect(1).toBe(1);
-    })
 });
