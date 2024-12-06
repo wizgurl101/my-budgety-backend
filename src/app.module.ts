@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { CategoryModule } from "./category/category.module";
 import { KeywordModule} from "./keyword/keyword.module";
+import { UploadCsvModule } from "./uploadCsv/uploadCsv.module";
 
 @Module({
   imports: [
@@ -9,7 +10,8 @@ import { KeywordModule} from "./keyword/keyword.module";
         isGlobal: true,
       }),
       CategoryModule,
-      KeywordModule
+      KeywordModule,
+      UploadCsvModule,
   ],
 })
 export class AppModule {}
