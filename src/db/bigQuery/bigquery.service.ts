@@ -26,4 +26,8 @@ export class BigQueryService {
 
     return queryResult;
   }
+
+  timestamp(date: Date) {
+    return this.bigQuery.timestamp(date);
+  }
 }

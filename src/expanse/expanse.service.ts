@@ -14,10 +14,10 @@ export class ExpanseService
               private uuidService: UuidService) {
   }
 
-  async create(userId: string, categoryId: string, name: string, date: date,
-               amount: number)
+  async create(userId: string, categoryId: string, name: string, amount: number)
   {
     const expanseId = this.uuidService.generate();
+    const date = DateTime.now()
     const bigqueryTimestamp = this.bigQueryService.timestamp(date);
     const query = `INSERT INTO ${this.projectId}.${this.projectName}.expanse ` +
         `(expanse_id, category_id, name, date, amount, user_id) VALUES ` +
@@ -34,7 +34,7 @@ export class ExpanseService
       }
   }
 
-  async update(expenseId: string ,name: string, amount: number)
+  async update(expanseId: string ,name: string, amount: number)
   {
     const query = `UPDATE ${this.projectId}.${this.projectName}.expanse ` +
         `SET name = '${name}', amount = ${amount} WHERE expanse_id = '${expanseId}'`;
