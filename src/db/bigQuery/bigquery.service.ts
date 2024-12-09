@@ -1,6 +1,6 @@
-import { Injectable } from "@nestjs/common";
-import { ConfigService } from "@nestjs/config";
-import { BigQuery } from "@google-cloud/bigquery";
+import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { BigQuery } from '@google-cloud/bigquery';
 
 @Injectable()
 export class BigQueryService {
