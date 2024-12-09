@@ -1,6 +1,6 @@
-import { Injectable } from "@nestjs/common";
-import { ConfigService } from "@nestjs/config";
-import { BigQuery } from "@google-cloud/bigquery";
+import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { BigQuery } from '@google-cloud/bigquery';
 
 @Injectable()
 export class BigQueryService {
@@ -25,9 +25,5 @@ export class BigQueryService {
       rows.forEach(row => queryResult.push(row))
 
     return queryResult;
-  }
-
-  timestamp(date: Date) {
-    return this.bigQuery.timestamp(date);
   }
 }

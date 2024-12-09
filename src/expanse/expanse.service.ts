@@ -14,14 +14,12 @@ export class ExpanseService
               private uuidService: UuidService) {
   }
 
-  async create(userId: string, categoryId: string, name: string, amount: number)
+  async create(categoryId: string, date: string, name: string, amount: number)
   {
     const expanseId = this.uuidService.generate();
-    const date = DateTime.now()
-    const bigqueryTimestamp = this.bigQueryService.timestamp(date);
     const query = `INSERT INTO ${this.projectId}.${this.projectName}.expanse ` +
-        `(expanse_id, category_id, name, date, amount, user_id) VALUES ` +
-        `('${expanseId}' , '${categoryId}', '${name}', '${bigqueryTimestamp}', ${amount}, '${userId})`;
+        `(expanse_id, category_id, name, date, amount) VALUES ` +
+        `('${expanseId}' , '${categoryId}', '${name}', '${date}', ${amount})`;
 
     try
     {
@@ -34,37 +32,24 @@ export class ExpanseService
       }
   }
 
-  async update(expanseId: string ,name: string, amount: number)
-  {
-    const query = `UPDATE ${this.projectId}.${this.projectName}.expanse ` +
-        `SET name = '${name}', amount = ${amount} WHERE expanse_id = '${expanseId}'`;
-
-    try
-    {
-      await this.bigQueryService.query(query);
-      return "expanse updated"
-    } catch (error)
-    {
-      console.log(error)
-      return "failed to update expanse"
-    }
-  }
-
-  async updateCategory(expenseId: string, categoryId: string)
-  {
-    const query = `UPDATE ${this.projectId}.${this.projectName}.expanse ` +
-        `SET category_id = '${categoryId}' WHERE expanse_id = '${expenseId}'`;
-
-    try
-    {
-      await this.bigQueryService.query(query);
-      return "expanse's category updated"
-    } catch (error)
-    {
-      console.log(error)
-      return "failed to update expanse's category"
-    }
-  }
+  //todo debug this update query -- Error Invaild query
+  // async update(expanseId: string ,categoryId: string, date: string, name: string, amount: number)
+  // {
+  //   const query = `UPDATE ${this.projectId}.${this.projectName}.expanse `
+  //     + `SET category_id = '${categoryId}', date = '${date}', name = '${name}', amount = ${amount} `
+  //     + `WHERE expanse_id = '${expanseId}'`;
+  //
+  //   try
+  //   {
+  //     console.log(query)
+  //     // await this.bigQueryService.query(query);
+  //     return "expanse updated"
+  //   } catch (error)
+  //   {
+  //     console.log(error)
+  //     return "failed to update expanse"
+  //   }
+  // }
 
   async delete(expenseId: string)
   {

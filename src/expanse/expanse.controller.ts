@@ -7,24 +7,23 @@ export class ExpanseController
   constructor(private readonly expanseService: ExpanseService) {}
 
   @Post()
-  async create(@Body('userId') userId: string, @Body('categoryId') categoryId: string,
+  async create(@Body('categoryId') categoryId: string, @Body('date') date: string,
                @Body('name') name: string, @Body('amount') amount: number)
   {
-    return this.expanseService.create(userId, categoryId, name, amount)
+    return this.expanseService.create(categoryId, date, name, amount)
   }
 
-  @Put(':id')
-  async update(@Param('id') expanseId: string, @Body('updatedName') updatedName,
-               @Body('updatedAmount') updatedAmount: number)
-  {
-    return this.expanseService.update(expanseId, updatedName, updatedAmount)
-  }
-
-  @Put(':id/updateCategory')
-  async updateCategory(@Param('id') expanseId: string, @Body('categoryId') categoryId: string)
-  {
-    return this.expanseService.updateCategory(expanseId, categoryId)
-  }
+  //todo debug this update query -- Error Invaild query
+  // @Put(':id')
+  // async update(@Param('id') expanseId: string,
+  //              @Body('updatedCategoryId') updatedCategoryId: string,
+  //              @Body('updatedDate') updatedDate: string,
+  //              @Body('updatedName') updatedName: string,
+  //              @Body('updatedAmount') updatedAmount: number)
+  // {
+  //   return this.expanseService.update(expanseId,updatedCategoryId,
+  //     updatedDate, updatedName, updatedAmount)
+  // }
 
   @Delete(':id')
   async delete(@Param('id') expanseId: string)
