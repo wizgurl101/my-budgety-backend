@@ -5,7 +5,10 @@ import { diskStorage } from 'multer';
 import { extname } from 'path';
 
 const generateFilename = (req, file, callback) => {
-    const filename = Date.now() + '_expanses';
+    const currentDate = new Date();
+    const filename = currentDate.getFullYear() + '_' + currentDate.getMonth()
+      +'_' + currentDate.getDay() + '_' + currentDate.getHours() + '_'+
+      currentDate.getMinutes() + '_' + currentDate.getSeconds() + '_expanses';
     const extension = extname(file.originalname);
     callback(null, `${filename}${extension}`);
 }
@@ -25,7 +28,7 @@ export class UploadToExpanseController {
     @UseInterceptors(FileInterceptor('file', {
         storage: diskStorage(
           {
-              destination: './uploads',
+              destination: './src/uploads',
               filename: generateFilename
           }),
         fileFilter: checkFileExtension
