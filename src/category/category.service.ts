@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { BigQueryService } from '../db/bigQuery/bigquery.service';
 import { UuidService } from "../utils/uuid/uuid.service";
+import { KeywordService } from '../keyword/keyword.service';
 
 @Injectable()
 export class CategoryService
@@ -11,7 +12,8 @@ export class CategoryService
 
     constructor(private configService: ConfigService,
                 private bigQueryService: BigQueryService,
-                private uuidService: UuidService) {
+                private uuidService: UuidService,
+                private keywordService: KeywordService) {
     }
 
     async create(userId: string, categoryName: string)
@@ -95,6 +97,12 @@ export class CategoryService
         try
         {
             const user_categories = await this.findAll(userId);
+
+            for(const category of user_categories)
+            {
+                const keyword_query = await this.keywordService.findAllByCategoryId(category.category_id);
+                console.log(JSON.stringify(keyword_query))
+            }
         }
         catch (error)
         {

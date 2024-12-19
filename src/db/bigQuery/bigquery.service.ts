@@ -19,8 +19,6 @@ export class BigQueryService {
       params: params,
     };
 
-    console.log(JSON.stringify(options))
-
     const [job] = await this.bigQuery.createQueryJob(options);
     const [rows] = await job.getQueryResults();
     const queryResult = []
