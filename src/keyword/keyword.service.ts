@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { UuidService } from "../utils/uuid/uuid.service";
 import {BigQueryService} from "../db/bigQuery/bigquery.service";
+import {Keyword} from "./interfaces/keyword.interface";
 
 @Injectable()
 export class KeywordService
@@ -78,20 +79,32 @@ export class KeywordService
         }
     }
 
-    async findAllByCategoryId(categoryId: string)
+    async findAllByCategoryId(categoryId: string): Promise<Keyword[]>
     {
         const query = `SELECT ROW_NUMBER() OVER() AS id, category_id, keyword_id, name `
           + `FROM ${this.projectId}.${this.projectName}.keywords `
           + `WHERE category_id = @category_id`;
 
         const params = { category_id: categoryId }
-
+        const keywordList: Keyword[] = [];
         try
         {
-            return await this.bigQueryService.query(query, params);
+            const data =  await this.bigQueryService.query(query, params);
+            for(const keyword of data)
+            {
+                const temp: Keyword = {
+                    id: keyword.id,
+                    category_id: keyword.category_id,
+                    keyword_id: keyword.keyword_id,
+                    name: keyword.name
+                }
+
+                keywordList.push(temp);
+            }
+            return keywordList;
         } catch (error) {
             console.log(error);
-            return [];
+            return keywordList;
         }
     }
 

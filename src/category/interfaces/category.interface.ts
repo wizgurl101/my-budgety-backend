@@ -1,9 +1,9 @@
-import { Expanse } from '../../expanse/interfaces/expanse.interface';
+import { Keyword } from '../../keyword/interfaces/keyword.interface';
 
 export interface Category
 {
     id: string;
     category_id: string;
     name: string;
-    keywords: Expanse[]
+    keywords: Keyword[]
 }
