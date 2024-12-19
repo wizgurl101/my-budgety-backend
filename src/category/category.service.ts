@@ -89,4 +89,16 @@ export class CategoryService
             return "failed to delete category"
         }
     }
+
+    async getAllCategoryWithKeywords(userId: string)
+    {
+        try
+        {
+            const user_categories = await this.findAll(userId);
+        }
+        catch (error)
+        {
+            return error
+        }
+    }
 }

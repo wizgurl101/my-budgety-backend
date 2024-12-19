@@ -13,10 +13,13 @@ export class BigQueryService {
     this.bigQuery = new BigQuery();
   }
 
-  async query(query: string) {
+  async query(query: string, params ?:any) {
     const options = {
       query: query,
+      params: params,
     };
+
+    console.log(JSON.stringify(options))
 
     const [job] = await this.bigQuery.createQueryJob(options);
     const [rows] = await job.getQueryResults();

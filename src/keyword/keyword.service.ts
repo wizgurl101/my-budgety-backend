@@ -78,6 +78,23 @@ export class KeywordService
         }
     }
 
+    async findAllByCategoryId(categoryId: string)
+    {
+        const query = `SELECT ROW_NUMBER() OVER() AS id, category_id, keyword_id, name `
+          + `FROM ${this.projectId}.${this.projectName}.keywords `
+          + `WHERE category_id = @category_id`;
+
+        const params = { category_id: categoryId }
+
+        try
+        {
+            return await this.bigQueryService.query(query, params);
+        } catch (error) {
+            console.log(error);
+            return [];
+        }
+    }
+
     async delete(id: string)
     {
         const query = `DELETE FROM ${this.projectId}.${this.projectName}.keywords `
