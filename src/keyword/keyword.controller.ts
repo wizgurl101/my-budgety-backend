@@ -17,6 +17,12 @@ export class KeywordController {
         return this.keywordService.findAll(userId);
     }
 
+    @Get('byCategory/:categoryId')
+    async findAllByCategoryId(@Param('categoryId') categoryId: string)
+    {
+        return this.keywordService.findAllByCategoryId(categoryId);
+    }
+
     @Post()
     async create(@Body('categoryId') categoryId: string,
                  @Body('name') name: string)

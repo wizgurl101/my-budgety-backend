@@ -3,12 +3,14 @@ import { CategoryService } from './category.service';
 import { BigQueryService } from '../db/bigQuery/bigquery.service';
 import { ConfigService } from '@nestjs/config';
 import { UuidService } from '../utils/uuid/uuid.service';
+import { KeywordService} from '../keyword/keyword.service';
 
 describe('CategoryService ', () => {
     let categoryService: CategoryService;
     let bigQueryService: BigQueryService;
     let configService: ConfigService;
     let uuidService: UuidService;
+    let keywordService: KeywordService;
 
     it('should be defined', async () => {
         const module: TestingModule = await Test.createTestingModule({
@@ -32,6 +34,14 @@ describe('CategoryService ', () => {
                         generate: jest.fn(),
                     },
                 },
+                {
+                    provide: KeywordService,
+                    useValue: {
+                        create: jest.fn(),
+                        update: jest.fn(),
+                        findOne: jest.fn(),
+                    },
+                },
             ],
         }).compile();
 
@@ -39,6 +49,7 @@ describe('CategoryService ', () => {
         bigQueryService = module.get<BigQueryService>(BigQueryService);
         configService = module.get<ConfigService>(ConfigService);
         uuidService = module.get<UuidService>(UuidService);
+        keywordService = module.get<KeywordService>(KeywordService);
 
         expect(categoryService).toBeDefined();
     });
@@ -65,6 +76,14 @@ describe('CategoryService ', () => {
                         generate: jest.fn(),
                     },
                 },
+                {
+                    provide: KeywordService,
+                    useValue: {
+                        create: jest.fn(),
+                        update: jest.fn(),
+                        findOne: jest.fn(),
+                    }
+                }
             ],
         }).compile();
 
@@ -72,6 +91,7 @@ describe('CategoryService ', () => {
         bigQueryService = module.get<BigQueryService>(BigQueryService);
         configService = module.get<ConfigService>(ConfigService);
         uuidService = module.get<UuidService>(UuidService);
+        keywordService = module.get<KeywordService>(KeywordService);
 
         const result = await categoryService.findOne('1');
         expect(result).toEqual({ category_id: '1', name: 'victorXjayce' });
