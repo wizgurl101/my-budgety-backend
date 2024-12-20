@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { CategoryService } from './category.service';
-import { BigQueryService } from '../db/bigQuery/bigquery.service';
+import { CategoryService } from '../../src/category/category.service';
+import { BigQueryService } from '../../src/db/bigQuery/bigquery.service';
 import { ConfigService } from '@nestjs/config';
-import { UuidService } from '../utils/uuid/uuid.service';
-import { KeywordService } from '../keyword/keyword.service';
+import { UuidService } from '../../src/utils/uuid/uuid.service';
+import { KeywordService } from '../../src/keyword/keyword.service';
 
 describe('CategoryService ', () => {
   let categoryService: CategoryService;
