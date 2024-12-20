@@ -1,16 +1,27 @@
-import { Controller, Get, Post, Put, Delete, Param, Query, Body } from "@nestjs/common";
-import { ExpanseService } from "./expanse.service";
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Param,
+  Query,
+  Body,
+} from '@nestjs/common';
+import { ExpanseService } from './expanse.service';
 
 @Controller('expanse')
-export class ExpanseController
-{
+export class ExpanseController {
   constructor(private readonly expanseService: ExpanseService) {}
 
   @Post()
-  async create(@Body('categoryId') categoryId: string, @Body('date') date: string,
-               @Body('name') name: string, @Body('amount') amount: number)
-  {
-    return this.expanseService.create(categoryId, date, name, amount)
+  async create(
+    @Body('categoryId') categoryId: string,
+    @Body('date') date: string,
+    @Body('name') name: string,
+    @Body('amount') amount: number,
+  ) {
+    return this.expanseService.create(categoryId, date, name, amount);
   }
 
   //todo debug this update query -- Error Invaild query
@@ -26,8 +37,7 @@ export class ExpanseController
   // }
 
   @Delete(':id')
-  async delete(@Param('id') expanseId: string)
-  {
-    return this.expanseService.delete(expanseId)
+  async delete(@Param('id') expanseId: string) {
+    return this.expanseService.delete(expanseId);
   }
 }

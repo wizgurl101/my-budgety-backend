@@ -1,8 +1,7 @@
-import { Module } from "@nestjs/common";
-import { UuidService } from "./uuid.service";
+import { Module } from '@nestjs/common';
+import { UuidService } from './uuid.service';
 
 @Module({
-    providers: [ UuidService],
+  providers: [UuidService],
 })
-
 export class UuidModule {}
