@@ -6,6 +6,7 @@ import { FileUtilsService } from '../../src/utils/fileUtils/fileUtils.service';
 import { CategoryService } from '../../src/category/category.service';
 import { KeywordService } from '../../src/keyword/keyword.service';
 import { UuidService } from '../../src/utils/uuid/uuid.service';
+import { DateUtilsService } from '../../src/utils/dateUtils/dateUtils.service';
 
 describe('UploadToExpanseService', () => {
   let uploadToExpanseService: UploadToExpanseService;
@@ -15,6 +16,7 @@ describe('UploadToExpanseService', () => {
   let uuidService: UuidService;
   let keywordService: KeywordService;
   let fileUtilsService: FileUtilsService;
+  let dateUtilsService: DateUtilsService;
 
   it('should be defined', async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -57,6 +59,12 @@ describe('UploadToExpanseService', () => {
           useValue: {
             getDataFromCsv: jest.fn(),
           },
+        },
+        {
+          provide: DateUtilsService,
+          useValue: {
+            convertDate: jest.fn(),
+          },
         }
       ],
     }).compile();
@@ -70,6 +78,7 @@ describe('UploadToExpanseService', () => {
     uuidService = module.get<UuidService>(UuidService);
     keywordService = module.get<KeywordService>(KeywordService);
     fileUtilsService = module.get<FileUtilsService>(FileUtilsService);
+    dateUtilsService = module.get<DateUtilsService>(DateUtilsService);
 
     expect(uploadToExpanseService).toBeDefined();
   });

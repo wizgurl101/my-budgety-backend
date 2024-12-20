@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { BigQueryService } from '../db/bigQuery/bigquery.service';
 import { FileUtilsService } from '../utils/fileUtils/fileUtils.service';
 import { CategoryService } from '../category/category.service';
+import { DateUtilsService } from '../utils/dateUtils/dateUtils.service';
 import { Category } from '../category/interfaces/category.interface';
 
 @Injectable()
@@ -15,12 +16,13 @@ export class UploadToExpanseService {
     private bigQueryService: BigQueryService,
     private fileUtilsService: FileUtilsService,
     private categoryService: CategoryService,
+    private dateUtilsService: DateUtilsService
   ) {}
 
   async uploadCsv(file: Express.Multer.File, userId: string) {
     try {
-      const CsvData = await this.fileUtilsService.getDataFromCsv(file.path);
-      const cateogries: Category[] =
+      const CsvData = await this.fileUtilsService.getCsvExpanses(file.path);
+      const categories: Category[] =
         await this.categoryService.getAllCategoryWithKeywords(userId);
       return { message: 'successfully upload csv data to expanse table' };
     } catch (error) {
