@@ -24,6 +24,11 @@ export class UploadToExpanseService {
       const CsvData = await this.fileUtilsService.getCsvExpanses(file.path);
       const categories: Category[] =
         await this.categoryService.getAllCategoryWithKeywords(userId);
+
+      //todo sort csv data by category
+
+      //todo upload to expanse table
+
       return { message: 'successfully upload csv data to expanse table' };
     } catch (error) {
       console.log(error);

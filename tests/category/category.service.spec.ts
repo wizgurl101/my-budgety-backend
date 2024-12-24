@@ -63,7 +63,7 @@ describe('CategoryService ', () => {
           useValue: {
             query: jest
               .fn()
-              .mockReturnValue({ category_id: '1', name: 'victorXjayce' }),
+              .mockReturnValue({ category_id: '1', name: 'victor and jayce bromance' }),
           },
         },
         {

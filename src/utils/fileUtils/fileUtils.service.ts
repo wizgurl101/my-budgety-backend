@@ -21,8 +21,6 @@ export class FileUtilsService {
       });
 
       readStream.on('close', () => {
-        console.log("csv data")
-        console.log(JSON.stringify(dataList))
         resolve(dataList);
       });
     });
@@ -63,7 +61,7 @@ export class FileUtilsService {
     {
       return error
     }
-    
+
     return csv_expanses
   }
 }
