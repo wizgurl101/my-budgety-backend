@@ -9,6 +9,7 @@ import { UuidService } from '../../src/utils/uuid/uuid.service';
 import { DateUtilsService } from '../../src/utils/dateUtils/dateUtils.service';
 import { CsvExpanse } from '../../src/uploadToExpanse/interface/csvExpanse.interface';
 import { Category } from '../../src/category/interfaces/category.interface';
+import { MISC_CATEGORY_NAME } from '../../src/category/constants/category.tablenames';
 
 describe('UploadToExpanseService', () => {
   let uploadToExpanseService: UploadToExpanseService;
@@ -166,7 +167,7 @@ describe('UploadToExpanseService', () => {
       {
         id: '2',
         category_id: 'cat2',
-        name: 'misc',
+        name: MISC_CATEGORY_NAME,
         keywords: [],
         expanses: [],
       },
@@ -277,7 +278,7 @@ describe('UploadToExpanseService', () => {
       {
         id: '2',
         category_id: 'cat2',
-        name: 'misc',
+        name: MISC_CATEGORY_NAME,
         keywords: [],
         expanses: [],
       },

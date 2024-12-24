@@ -6,6 +6,7 @@ import { CategoryService } from '../category/category.service';
 import { DateUtilsService } from '../utils/dateUtils/dateUtils.service';
 import { Category } from '../category/interfaces/category.interface';
 import { CsvExpanse } from './interface/csvExpanse.interface';
+import { MISC_CATEGORY_NAME } from '../category/constants/category.tablenames';
 
 @Injectable()
 export class UploadToExpanseService {
@@ -46,10 +47,11 @@ export class UploadToExpanseService {
       category.expanses = [...categoryExpense];
     });
 
-    const unusedExpenses = csvData.filter((expense) => expense.used === false);
+    const unusedExpenses = csvData.filter(
+      (expense) => expense.used === false);
 
     let misc_category_index = categoryData.findIndex(
-      (category) => category.name === 'misc',
+      (category) => category.name === MISC_CATEGORY_NAME,
     );
     let misc_category = categoryData[misc_category_index];
     misc_category.expanses = [...unusedExpenses];
@@ -68,11 +70,10 @@ export class UploadToExpanseService {
         categories,
       );
 
-      // todo unused expenses is added to misc category
-
       //todo upload to expanse table
 
-      return { message: 'successfully upload csv data to expanse table' };
+      return { message: 'successfully upload csv data to expanse table',
+      data: category_with_csv_data};
     } catch (error) {
       console.log(error);
       return { message: 'failed to export csv data to expanse table' };
