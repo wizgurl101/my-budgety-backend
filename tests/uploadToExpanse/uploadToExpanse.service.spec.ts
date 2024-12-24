@@ -182,4 +182,101 @@ describe('UploadToExpanseService', () => {
 
     expect(result_expanses_misc.length).toBe(0);
   })
+
+  it('Sort Csv Data By Category function should sort unused expenses into misc category', async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      providers: [
+        UploadToExpanseService,
+        {
+          provide: BigQueryService,
+          useValue: {
+            query: jest.fn(),
+          },
+        },
+        {
+          provide: ConfigService,
+          useValue: {
+            get: jest.fn(),
+          },
+        },
+        {
+          provide: UuidService,
+          useValue: {
+            generate: jest.fn(),
+          },
+        },
+        {
+          provide: KeywordService,
+          useValue: {
+            create: jest.fn(),
+            update: jest.fn(),
+            findOne: jest.fn(),
+          },
+        },
+        {
+          provide: CategoryService,
+          useValue: {
+            getAllCategoryWithKeywords: jest.fn(),
+          },
+        },
+        {
+          provide: FileUtilsService,
+          useValue: {
+            getDataFromCsv: jest.fn(),
+          },
+        },
+        {
+          provide: DateUtilsService,
+          useValue: {
+            convertDate: jest.fn(),
+          },
+        }
+      ],
+    }).compile();
+
+    uploadToExpanseService = module.get<UploadToExpanseService>(
+      UploadToExpanseService,
+    );
+    categoryService = module.get<CategoryService>(CategoryService);
+    bigQueryService = module.get<BigQueryService>(BigQueryService);
+    configService = module.get<ConfigService>(ConfigService);
+    uuidService = module.get<UuidService>(UuidService);
+    keywordService = module.get<KeywordService>(KeywordService);
+    fileUtilsService = module.get<FileUtilsService>(FileUtilsService);
+    dateUtilsService = module.get<DateUtilsService>(DateUtilsService);
+
+    const testCsvData: CsvExpanse[] = [
+      { date: new Date(), name: '20 mudkip plushies', amount: 100,  used: false },
+      { date: new Date(), name: 'my enemy tears', amount: 1000000,  used: false },
+    ];
+
+    const testCategories: Category[] = [
+      {
+        id: '1',
+        category_id: 'cat1',
+        name: 'gas',
+        keywords: [{ id: '1', keyword_id: 'key1', category_id: 'cat1', name: 'husky' },
+          { id: '2', keyword_id: 'key2', category_id: 'cat1', name: 'shell' }
+        ],
+        expanses: [],
+      },
+      {
+        id: '2',
+        category_id: 'cat2',
+        name: 'misc',
+        keywords: [],
+        expanses: [],
+      },
+    ];
+
+    const result = uploadToExpanseService
+      .SortCsvDataByCategory(testCsvData, testCategories);
+    const result_expanses = result[0].expanses;
+    const result_expanses_misc = result[1].expanses;
+
+    expect (result_expanses.length).toBe(0);
+    expect(result_expanses_misc.length).toBe(2);
+    expect(result_expanses_misc[0].name).toBe('20 mudkip plushies');
+    expect(result_expanses_misc[1].name).toBe('my enemy tears');
+  })
 });
