@@ -63,8 +63,7 @@ export class UploadToExpanseService {
   async uploadCsv(file: Express.Multer.File, userId: string) {
     try {
       const CsvData = await this.fileUtilsService.getCsvExpanses(file.path);
-      if(CsvData.length === 0)
-      {
+      if (CsvData.length === 0) {
         return { message: 'No data found in the csv file' };
       }
 

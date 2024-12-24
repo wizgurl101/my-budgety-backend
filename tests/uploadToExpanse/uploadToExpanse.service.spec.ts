@@ -148,7 +148,7 @@ describe('UploadToExpanseService', () => {
           useValue: {
             create: jest.fn(),
           },
-        }
+        },
       ],
     }).compile();
 
@@ -255,8 +255,8 @@ describe('UploadToExpanseService', () => {
           provide: ExpanseService,
           useValue: {
             create: jest.fn(),
-          }
-        }
+          },
+        },
       ],
     }).compile();
 
