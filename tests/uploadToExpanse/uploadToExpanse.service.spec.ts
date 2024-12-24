@@ -7,6 +7,7 @@ import { CategoryService } from '../../src/category/category.service';
 import { KeywordService } from '../../src/keyword/keyword.service';
 import { UuidService } from '../../src/utils/uuid/uuid.service';
 import { DateUtilsService } from '../../src/utils/dateUtils/dateUtils.service';
+import { ExpanseService } from '../../src/expanse/expanse.service';
 import { CsvExpanse } from '../../src/uploadToExpanse/interface/csvExpanse.interface';
 import { Category } from '../../src/category/interfaces/category.interface';
 import { MISC_CATEGORY_NAME } from '../../src/category/constants/category.tablenames';
@@ -20,6 +21,7 @@ describe('UploadToExpanseService', () => {
   let keywordService: KeywordService;
   let fileUtilsService: FileUtilsService;
   let dateUtilsService: DateUtilsService;
+  let expanseService: ExpanseService;
 
   it('should be defined', async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -69,6 +71,12 @@ describe('UploadToExpanseService', () => {
             convertDate: jest.fn(),
           },
         },
+        {
+          provide: ExpanseService,
+          useValue: {
+            create: jest.fn(),
+          },
+        },
       ],
     }).compile();
 
@@ -82,6 +90,7 @@ describe('UploadToExpanseService', () => {
     keywordService = module.get<KeywordService>(KeywordService);
     fileUtilsService = module.get<FileUtilsService>(FileUtilsService);
     dateUtilsService = module.get<DateUtilsService>(DateUtilsService);
+    expanseService = module.get<ExpanseService>(ExpanseService);
 
     expect(uploadToExpanseService).toBeDefined();
   });
@@ -134,6 +143,12 @@ describe('UploadToExpanseService', () => {
             convertDate: jest.fn(),
           },
         },
+        {
+          provide: ExpanseService,
+          useValue: {
+            create: jest.fn(),
+          },
+        }
       ],
     }).compile();
 
@@ -147,6 +162,7 @@ describe('UploadToExpanseService', () => {
     keywordService = module.get<KeywordService>(KeywordService);
     fileUtilsService = module.get<FileUtilsService>(FileUtilsService);
     dateUtilsService = module.get<DateUtilsService>(DateUtilsService);
+    expanseService = module.get<ExpanseService>(ExpanseService);
 
     const testCsvData: CsvExpanse[] = [
       { date: new Date(), name: 'husky station', amount: 10, used: false },
@@ -235,6 +251,12 @@ describe('UploadToExpanseService', () => {
             convertDate: jest.fn(),
           },
         },
+        {
+          provide: ExpanseService,
+          useValue: {
+            create: jest.fn(),
+          }
+        }
       ],
     }).compile();
 
@@ -248,6 +270,7 @@ describe('UploadToExpanseService', () => {
     keywordService = module.get<KeywordService>(KeywordService);
     fileUtilsService = module.get<FileUtilsService>(FileUtilsService);
     dateUtilsService = module.get<DateUtilsService>(DateUtilsService);
+    expanseService = module.get<ExpanseService>(ExpanseService);
 
     const testCsvData: CsvExpanse[] = [
       {
