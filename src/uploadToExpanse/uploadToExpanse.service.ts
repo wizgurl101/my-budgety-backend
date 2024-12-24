@@ -4,6 +4,7 @@ import { BigQueryService } from '../db/bigQuery/bigquery.service';
 import { FileUtilsService } from '../utils/fileUtils/fileUtils.service';
 import { CategoryService } from '../category/category.service';
 import { DateUtilsService } from '../utils/dateUtils/dateUtils.service';
+import { ExpanseService } from '../expanse/expanse.service';
 import { Category } from '../category/interfaces/category.interface';
 import { CsvExpanse } from './interface/csvExpanse.interface';
 import { MISC_CATEGORY_NAME } from '../category/constants/category.tablenames';
@@ -19,6 +20,7 @@ export class UploadToExpanseService {
     private fileUtilsService: FileUtilsService,
     private categoryService: CategoryService,
     private dateUtilsService: DateUtilsService,
+    private expanseService: ExpanseService
   ) {}
 
   public SortCsvDataByCategory(
@@ -70,10 +72,17 @@ export class UploadToExpanseService {
         categories,
       );
 
-      //todo upload to expanse table
+      for(const category of category_with_csv_data)
+      {
+        for(const expanse of category.expanses)
+        {
+          const date = `${expanse.date.getFullYear()}-${expanse.date.getMonth() + 1}-${expanse.date.getDate()}`;
+          await this.expanseService.create(category.category_id,
+            date, expanse.name, expanse.amount);
+        }
+      }
 
-      return { message: 'successfully upload csv data to expanse table',
-      data: category_with_csv_data};
+      return { message: 'successfully upload csv data to expanse table'};
     } catch (error) {
       console.log(error);
       return { message: 'failed to export csv data to expanse table' };

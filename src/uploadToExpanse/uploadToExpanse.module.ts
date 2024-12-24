@@ -7,6 +7,7 @@ import { FileUtilsService } from '../utils/fileUtils/fileUtils.service';
 import { CategoryService } from '../category/category.service';
 import { KeywordService } from '../keyword/keyword.service';
 import { DateUtilsService } from '../utils/dateUtils/dateUtils.service';
+import { ExpanseService } from '../expanse/expanse.service';
 
 @Module({
   controllers: [UploadToExpanseController],
@@ -18,6 +19,7 @@ import { DateUtilsService } from '../utils/dateUtils/dateUtils.service';
     CategoryService,
     KeywordService,
     DateUtilsService,
+    ExpanseService
   ],
 })
 export class UploadToExpanseModule {}
