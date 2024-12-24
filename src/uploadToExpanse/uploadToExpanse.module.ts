@@ -19,7 +19,7 @@ import { ExpanseService } from '../expanse/expanse.service';
     CategoryService,
     KeywordService,
     DateUtilsService,
-    ExpanseService
+    ExpanseService,
   ],
 })
 export class UploadToExpanseModule {}

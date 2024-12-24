@@ -20,7 +20,7 @@ export class UploadToExpanseService {
     private fileUtilsService: FileUtilsService,
     private categoryService: CategoryService,
     private dateUtilsService: DateUtilsService,
-    private expanseService: ExpanseService
+    private expanseService: ExpanseService,
   ) {}
 
   public SortCsvDataByCategory(
@@ -49,8 +49,7 @@ export class UploadToExpanseService {
       category.expanses = [...categoryExpense];
     });
 
-    const unusedExpenses = csvData.filter(
-      (expense) => expense.used === false);
+    const unusedExpenses = csvData.filter((expense) => expense.used === false);
 
     let misc_category_index = categoryData.findIndex(
       (category) => category.name === MISC_CATEGORY_NAME,
@@ -64,6 +63,11 @@ export class UploadToExpanseService {
   async uploadCsv(file: Express.Multer.File, userId: string) {
     try {
       const CsvData = await this.fileUtilsService.getCsvExpanses(file.path);
+      if(CsvData.length === 0)
+      {
+        return { message: 'No data found in the csv file' };
+      }
+
       const categories: Category[] =
         await this.categoryService.getAllCategoryWithKeywords(userId);
 
@@ -72,21 +76,26 @@ export class UploadToExpanseService {
         categories,
       );
 
-      for(const category of category_with_csv_data)
-      {
-        for(const expanse of category.expanses)
-        {
+      for (const category of category_with_csv_data) {
+        for (const expanse of category.expanses) {
           const date = `${expanse.date.getFullYear()}-${expanse.date.getMonth() + 1}-${expanse.date.getDate()}`;
-          await this.expanseService.create(category.category_id,
-            date, expanse.name, expanse.amount);
+          await this.expanseService.create(
+            category.category_id,
+            date,
+            expanse.name,
+            expanse.amount,
+          );
         }
       }
 
-      await this.fileUtilsService.deleteCsvFilesFromUploadsFolder();
-      return { message: 'successfully upload csv data to expanse table'};
+      return { message: 'successfully upload csv data to expanse table' };
     } catch (error) {
       console.log(error);
       return { message: 'failed to export csv data to expanse table' };
     }
+  }
+
+  async deleteCsvFiles() {
+    return await this.fileUtilsService.deleteCsvFilesFromUploadsFolder();
   }
 }

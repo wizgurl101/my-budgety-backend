@@ -4,6 +4,7 @@ import {
   UseInterceptors,
   UploadedFile,
   Body,
+  Delete,
 } from '@nestjs/common';
 import { UploadToExpanseService } from './uploadToExpanse.service';
 import { FileInterceptor } from '@nestjs/platform-express';
@@ -57,5 +58,10 @@ export class UploadToExpanseController {
     @Body('userId') userId: string,
   ) {
     return this.uploadToExpanseService.uploadCsv(file, userId);
+  }
+
+  @Delete('csvfiles')
+  async deleteCsvFiles() {
+    return this.uploadToExpanseService.deleteCsvFiles();
   }
 }

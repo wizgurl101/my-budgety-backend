@@ -61,12 +61,10 @@ describe('CategoryService ', () => {
         {
           provide: BigQueryService,
           useValue: {
-            query: jest
-              .fn()
-              .mockReturnValue({
-                category_id: '1',
-                name: 'victor and jayce bromance',
-              }),
+            query: jest.fn().mockReturnValue({
+              category_id: '1',
+              name: 'victor and jayce bromance',
+            }),
           },
         },
         {

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import fs from 'fs';
+import { createReadStream, readdir, unlink } from 'fs';
 import { CsvExpanse } from '../../uploadToExpanse/interface/csvExpanse.interface';
 import { DateUtilsService } from '../dateUtils/dateUtils.service';
 import { join } from 'path';
@@ -9,7 +9,7 @@ export class FileUtilsService {
   constructor(private dateUtilsService: DateUtilsService) {}
 
   getDataFromCsv(filepath: string) {
-    const readStream = fs.createReadStream(filepath, { encoding: 'utf8' });
+    const readStream = createReadStream(filepath, { encoding: 'utf8' });
 
     return new Promise((resolve, reject) => {
       let dataList = [];
@@ -64,27 +64,23 @@ export class FileUtilsService {
   async deleteCsvFilesFromUploadsFolder() {
     const uploadsDirectoryPath = join(__dirname, 'uploads');
 
-    return new Promise((resolve, reject) =>
-    {
-      fs.readdir(uploadsDirectoryPath, (err, files) =>
-      {
-        if(err) {
+    return new Promise((resolve, reject) => {
+      readdir(uploadsDirectoryPath, (err, files) => {
+        if (err) {
           reject(err);
         }
 
         files.forEach((file) => {
-          if(file.endsWith('.csv'))
-          {
+          if (file.endsWith('.csv')) {
             const filePath = join(uploadsDirectoryPath, file);
-            fs.unlink(filePath, (err) => {
+            unlink(filePath, (err) => {
               if (err) reject(err);
-
-            })
+            });
           }
-        })
+        });
 
         resolve('All csv files deleted successfully');
-      })
-    })
+      });
+    });
   }
 }
