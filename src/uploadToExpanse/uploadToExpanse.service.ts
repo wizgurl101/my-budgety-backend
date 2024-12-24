@@ -82,6 +82,7 @@ export class UploadToExpanseService {
         }
       }
 
+      await this.fileUtilsService.deleteCsvFilesFromUploadsFolder();
       return { message: 'successfully upload csv data to expanse table'};
     } catch (error) {
       console.log(error);
