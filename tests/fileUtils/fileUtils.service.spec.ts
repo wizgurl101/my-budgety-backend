@@ -18,7 +18,7 @@ describe('File Utils Service', () => {
     dateUtilsService = module.get<DateUtilsService>(DateUtilsService);
   });
 
-  it('Get Data From Csv function should return the a list of expanses', async () => {
+  it('Get Data From Csv function should return a list of expanses', async () => {
     const mockCsvData = [
       "12/19/2024,husky,10,,272.61\r\n12/19/2024,shell,25,,272.6\r\n"
     ];
