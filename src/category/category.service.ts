@@ -4,6 +4,7 @@ import { BigQueryService } from '../db/bigQuery/bigquery.service';
 import { UuidService } from '../utils/uuid/uuid.service';
 import { KeywordService } from '../keyword/keyword.service';
 import { Category } from './interfaces/category.interface';
+import { CsvExpanse } from '../uploadToExpanse/interface/csvExpanse.interface';
 
 @Injectable()
 export class CategoryService {
@@ -97,12 +98,14 @@ export class CategoryService {
         const keyword_query = await this.keywordService.findAllByCategoryId(
           category.category_id,
         );
+        const empty_expanses: CsvExpanse[] = [];
 
         const category_with_keywords: Category = {
           id: category.id,
           category_id: category.category_id,
           name: category.name,
           keywords: keyword_query,
+          expanses: empty_expanses,
         };
 
         categories.push(category_with_keywords);

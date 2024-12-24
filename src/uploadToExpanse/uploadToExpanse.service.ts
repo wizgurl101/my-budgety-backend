@@ -5,6 +5,7 @@ import { FileUtilsService } from '../utils/fileUtils/fileUtils.service';
 import { CategoryService } from '../category/category.service';
 import { DateUtilsService } from '../utils/dateUtils/dateUtils.service';
 import { Category } from '../category/interfaces/category.interface';
+import { CsvExpanse } from './interface/csvExpanse.interface';
 
 @Injectable()
 export class UploadToExpanseService {
@@ -19,6 +20,34 @@ export class UploadToExpanseService {
     private dateUtilsService: DateUtilsService
   ) {}
 
+  public SortCsvDataByCategory(csvData: CsvExpanse[], categoryData: Category[]): Category[] {
+    categoryData.forEach((category) => {
+      let categoryExpense = []
+      const keywords = category.keywords
+
+      if(keywords.length > 0)
+      {
+        keywords.forEach((keyword) => {
+          csvData.forEach((data) => {
+            if(data.name.includes(keyword.name))
+            {
+              categoryExpense.push(data)
+              data.used = true
+            }
+          })
+        })
+      }
+
+      categoryExpense.sort((a, b) => {
+        return a.date - b.date
+      })
+
+      category.expanses = [...categoryExpense]
+    })
+
+    return [...categoryData]
+  }
+
   async uploadCsv(file: Express.Multer.File, userId: string) {
     try {
       const CsvData = await this.fileUtilsService.getCsvExpanses(file.path);
@@ -26,6 +55,7 @@ export class UploadToExpanseService {
         await this.categoryService.getAllCategoryWithKeywords(userId);
 
       //todo sort csv data by category
+      const category_with_csv_data = this.SortCsvDataByCategory(CsvData, categories)
 
       //todo upload to expanse table
 
