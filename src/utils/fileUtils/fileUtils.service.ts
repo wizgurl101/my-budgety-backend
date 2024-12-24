@@ -29,39 +29,34 @@ export class FileUtilsService {
   async getCsvExpanses(filepath: string): Promise<CsvExpanse[]> {
     let csv_expanses: CsvExpanse[] = [];
 
-    try
-    {
+    try {
       const data = await this.getDataFromCsv(filepath);
-      let expansesData = data[0].split("\r\n")
+      let expansesData = data[0].split('\r\n');
 
       expansesData.forEach((e) => {
-        let items = e.split(",");
+        let items = e.split(',');
 
-        if(items.length > 1)
-        {
-          let date = items[0]
-          let name = items[1].toLowerCase()
-          let amount = items[2]
+        if (items.length > 1) {
+          let date = items[0];
+          let name = items[1].toLowerCase();
+          let amount = items[2];
 
-          if(!name.includes("payment"))
-          {
+          if (!name.includes('payment')) {
             let csv_expanse: CsvExpanse = {
               date: this.dateUtilsService.getDateTimeFromStr(date),
               name: name,
               amount: Number(amount),
-              used: false
-            }
+              used: false,
+            };
 
-            csv_expanses.push(csv_expanse)
+            csv_expanses.push(csv_expanse);
           }
         }
-      })
-    }
-    catch(error)
-    {
-      return error
+      });
+    } catch (error) {
+      return error;
     }
 
-    return csv_expanses
+    return csv_expanses;
   }
 }

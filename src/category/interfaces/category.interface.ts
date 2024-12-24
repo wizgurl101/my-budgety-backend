@@ -6,5 +6,5 @@ export interface Category {
   category_id: string;
   name: string;
   keywords: Keyword[];
-  expanses: CsvExpanse[]
+  expanses: CsvExpanse[];
 }

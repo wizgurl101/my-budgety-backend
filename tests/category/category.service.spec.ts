@@ -63,7 +63,10 @@ describe('CategoryService ', () => {
           useValue: {
             query: jest
               .fn()
-              .mockReturnValue({ category_id: '1', name: 'victor and jayce bromance' }),
+              .mockReturnValue({
+                category_id: '1',
+                name: 'victor and jayce bromance',
+              }),
           },
         },
         {
@@ -96,6 +99,9 @@ describe('CategoryService ', () => {
     keywordService = module.get<KeywordService>(KeywordService);
 
     const result = await categoryService.findOne('1');
-    expect(result).toEqual({ category_id: '1', name: 'victor and jayce bromance' });
+    expect(result).toEqual({
+      category_id: '1',
+      name: 'victor and jayce bromance',
+    });
   });
 });

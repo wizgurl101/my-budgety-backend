@@ -17,7 +17,7 @@ import { DateUtilsService } from '../utils/dateUtils/dateUtils.service';
     FileUtilsService,
     CategoryService,
     KeywordService,
-    DateUtilsService
+    DateUtilsService,
   ],
 })
 export class UploadToExpanseModule {}

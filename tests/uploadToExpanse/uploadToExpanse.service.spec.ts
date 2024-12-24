@@ -7,7 +7,7 @@ import { CategoryService } from '../../src/category/category.service';
 import { KeywordService } from '../../src/keyword/keyword.service';
 import { UuidService } from '../../src/utils/uuid/uuid.service';
 import { DateUtilsService } from '../../src/utils/dateUtils/dateUtils.service';
-import {CsvExpanse } from '../../src/uploadToExpanse/interface/csvExpanse.interface';
+import { CsvExpanse } from '../../src/uploadToExpanse/interface/csvExpanse.interface';
 import { Category } from '../../src/category/interfaces/category.interface';
 
 describe('UploadToExpanseService', () => {
@@ -67,7 +67,7 @@ describe('UploadToExpanseService', () => {
           useValue: {
             convertDate: jest.fn(),
           },
-        }
+        },
       ],
     }).compile();
 
@@ -132,7 +132,7 @@ describe('UploadToExpanseService', () => {
           useValue: {
             convertDate: jest.fn(),
           },
-        }
+        },
       ],
     }).compile();
 
@@ -148,8 +148,8 @@ describe('UploadToExpanseService', () => {
     dateUtilsService = module.get<DateUtilsService>(DateUtilsService);
 
     const testCsvData: CsvExpanse[] = [
-      { date: new Date(), name: 'husky station', amount: 10,  used: false },
-      { date: new Date(), name: 'shell gas pump 25', amount: 25,  used: false },
+      { date: new Date(), name: 'husky station', amount: 10, used: false },
+      { date: new Date(), name: 'shell gas pump 25', amount: 25, used: false },
     ];
 
     const testCategories: Category[] = [
@@ -157,8 +157,9 @@ describe('UploadToExpanseService', () => {
         id: '1',
         category_id: 'cat1',
         name: 'gas',
-        keywords: [{ id: '1', keyword_id: 'key1', category_id: 'cat1', name: 'husky' },
-          { id: '2', keyword_id: 'key2', category_id: 'cat1', name: 'shell' }
+        keywords: [
+          { id: '1', keyword_id: 'key1', category_id: 'cat1', name: 'husky' },
+          { id: '2', keyword_id: 'key2', category_id: 'cat1', name: 'shell' },
         ],
         expanses: [],
       },
@@ -171,8 +172,10 @@ describe('UploadToExpanseService', () => {
       },
     ];
 
-    const result = uploadToExpanseService
-      .SortCsvDataByCategory(testCsvData, testCategories);
+    const result = uploadToExpanseService.SortCsvDataByCategory(
+      testCsvData,
+      testCategories,
+    );
     const result_expanses = result[0].expanses;
     const result_expanses_misc = result[1].expanses;
 
@@ -181,7 +184,7 @@ describe('UploadToExpanseService', () => {
     expect(result_expanses[1].name).toBe('shell gas pump 25');
 
     expect(result_expanses_misc.length).toBe(0);
-  })
+  });
 
   it('Sort Csv Data By Category function should sort unused expenses into misc category', async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -230,7 +233,7 @@ describe('UploadToExpanseService', () => {
           useValue: {
             convertDate: jest.fn(),
           },
-        }
+        },
       ],
     }).compile();
 
@@ -246,8 +249,18 @@ describe('UploadToExpanseService', () => {
     dateUtilsService = module.get<DateUtilsService>(DateUtilsService);
 
     const testCsvData: CsvExpanse[] = [
-      { date: new Date(), name: '20 mudkip plushies', amount: 100,  used: false },
-      { date: new Date(), name: 'my enemy tears', amount: 1000000,  used: false },
+      {
+        date: new Date(),
+        name: '20 mudkip plushies',
+        amount: 100,
+        used: false,
+      },
+      {
+        date: new Date(),
+        name: 'my enemy tears',
+        amount: 1000000,
+        used: false,
+      },
     ];
 
     const testCategories: Category[] = [
@@ -255,8 +268,9 @@ describe('UploadToExpanseService', () => {
         id: '1',
         category_id: 'cat1',
         name: 'gas',
-        keywords: [{ id: '1', keyword_id: 'key1', category_id: 'cat1', name: 'husky' },
-          { id: '2', keyword_id: 'key2', category_id: 'cat1', name: 'shell' }
+        keywords: [
+          { id: '1', keyword_id: 'key1', category_id: 'cat1', name: 'husky' },
+          { id: '2', keyword_id: 'key2', category_id: 'cat1', name: 'shell' },
         ],
         expanses: [],
       },
@@ -269,14 +283,16 @@ describe('UploadToExpanseService', () => {
       },
     ];
 
-    const result = uploadToExpanseService
-      .SortCsvDataByCategory(testCsvData, testCategories);
+    const result = uploadToExpanseService.SortCsvDataByCategory(
+      testCsvData,
+      testCategories,
+    );
     const result_expanses = result[0].expanses;
     const result_expanses_misc = result[1].expanses;
 
-    expect (result_expanses.length).toBe(0);
+    expect(result_expanses.length).toBe(0);
     expect(result_expanses_misc.length).toBe(2);
     expect(result_expanses_misc[0].name).toBe('20 mudkip plushies');
     expect(result_expanses_misc[1].name).toBe('my enemy tears');
-  })
+  });
 });

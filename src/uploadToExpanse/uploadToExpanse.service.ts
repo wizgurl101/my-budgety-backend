@@ -17,44 +17,44 @@ export class UploadToExpanseService {
     private bigQueryService: BigQueryService,
     private fileUtilsService: FileUtilsService,
     private categoryService: CategoryService,
-    private dateUtilsService: DateUtilsService
+    private dateUtilsService: DateUtilsService,
   ) {}
 
-  public SortCsvDataByCategory(csvData: CsvExpanse[], categoryData: Category[]): Category[] {
+  public SortCsvDataByCategory(
+    csvData: CsvExpanse[],
+    categoryData: Category[],
+  ): Category[] {
     categoryData.forEach((category) => {
-      let categoryExpense = []
-      const keywords = category.keywords
+      let categoryExpense = [];
+      const keywords = category.keywords;
 
-      if(keywords.length > 0)
-      {
+      if (keywords.length > 0) {
         keywords.forEach((keyword) => {
           csvData.forEach((data) => {
-            if(data.name.includes(keyword.name))
-            {
-              categoryExpense.push(data)
-              data.used = true
+            if (data.name.includes(keyword.name)) {
+              categoryExpense.push(data);
+              data.used = true;
             }
-          })
-        })
+          });
+        });
       }
 
       categoryExpense.sort((a, b) => {
-        return a.date - b.date
-      })
+        return a.date - b.date;
+      });
 
-      category.expanses = [...categoryExpense]
-    })
+      category.expanses = [...categoryExpense];
+    });
 
-    const unusedExpenses = csvData.filter((expense) =>
-      expense.used === false
-    )
+    const unusedExpenses = csvData.filter((expense) => expense.used === false);
 
-    let misc_category_index = categoryData
-      .findIndex((category) => category.name === 'misc')
-    let misc_category = categoryData[misc_category_index]
-    misc_category.expanses = [...unusedExpenses]
+    let misc_category_index = categoryData.findIndex(
+      (category) => category.name === 'misc',
+    );
+    let misc_category = categoryData[misc_category_index];
+    misc_category.expanses = [...unusedExpenses];
 
-    return [...categoryData]
+    return [...categoryData];
   }
 
   async uploadCsv(file: Express.Multer.File, userId: string) {
@@ -63,7 +63,10 @@ export class UploadToExpanseService {
       const categories: Category[] =
         await this.categoryService.getAllCategoryWithKeywords(userId);
 
-      const category_with_csv_data = this.SortCsvDataByCategory(CsvData, categories)
+      const category_with_csv_data = this.SortCsvDataByCategory(
+        CsvData,
+        categories,
+      );
 
       // todo unused expenses is added to misc category
 
