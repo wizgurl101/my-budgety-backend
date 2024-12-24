@@ -162,14 +162,24 @@ describe('UploadToExpanseService', () => {
         ],
         expanses: [],
       },
+      {
+        id: '2',
+        category_id: 'cat2',
+        name: 'misc',
+        keywords: [],
+        expanses: [],
+      },
     ];
 
     const result = uploadToExpanseService
       .SortCsvDataByCategory(testCsvData, testCategories);
     const result_expanses = result[0].expanses;
+    const result_expanses_misc = result[1].expanses;
 
     expect(result_expanses.length).toBe(2);
     expect(result_expanses[0].name).toBe('husky station');
     expect(result_expanses[1].name).toBe('shell gas pump 25');
+
+    expect(result_expanses_misc.length).toBe(0);
   })
 });

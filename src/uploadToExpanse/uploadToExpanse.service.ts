@@ -45,6 +45,15 @@ export class UploadToExpanseService {
       category.expanses = [...categoryExpense]
     })
 
+    const unusedExpenses = csvData.filter((expense) =>
+      expense.used === false
+    )
+
+    let misc_category_index = categoryData
+      .findIndex((category) => category.name === 'misc')
+    let misc_category = categoryData[misc_category_index]
+    misc_category.expanses = [...unusedExpenses]
+
     return [...categoryData]
   }
 
@@ -54,8 +63,9 @@ export class UploadToExpanseService {
       const categories: Category[] =
         await this.categoryService.getAllCategoryWithKeywords(userId);
 
-      //todo sort csv data by category
       const category_with_csv_data = this.SortCsvDataByCategory(CsvData, categories)
+
+      // todo unused expenses is added to misc category
 
       //todo upload to expanse table
 
