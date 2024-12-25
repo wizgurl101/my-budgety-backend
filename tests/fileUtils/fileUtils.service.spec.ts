@@ -27,13 +27,13 @@ describe('File Utils Service', () => {
     const result = await fileUtilsService.getCsvExpanses('mockFilePath');
     expect(result).toEqual([
       {
-        date: new Date('2024-12-19T07:00:00.000Z'),
+        date: new Date('2024-12-19'),
         name: 'husky',
         amount: 10,
         used: false,
       },
       {
-        date: new Date('2024-12-19T07:00:00.000Z'),
+        date: new Date('2024-12-19'),
         name: 'shell',
         amount: 25,
         used: false,
@@ -53,7 +53,7 @@ describe('File Utils Service', () => {
     const result = await fileUtilsService.getCsvExpanses('mockFilePath');
     expect(result).toEqual([
       {
-        date: new Date('2024-12-19T07:00:00.000Z'),
+        date: new Date('2024-12-19T00:00:00.000Z'),
         name: 'husky',
         amount: 10,
         used: false,

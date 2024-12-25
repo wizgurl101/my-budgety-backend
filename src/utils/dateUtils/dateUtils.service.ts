@@ -20,6 +20,8 @@ export class DateUtilsService {
   getDateTimeFromStr(dateString: string): Date {
     const date = dateString.split('/');
     let monthNumber = Number(date[0]);
-    return new Date(Number(date[2]), --monthNumber, Number(date[1]));
+    let newDate = new Date(Number(date[2]), --monthNumber, Number(date[1]));
+    newDate.setUTCHours(0, 0, 0, 0);
+    return newDate;
   }
 }
