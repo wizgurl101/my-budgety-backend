@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { createReadStream, readdir, unlink } from 'fs';
 import { CsvExpanse } from '../../uploadToExpanse/interface/csvExpanse.interface';
 import { DateUtilsService } from '../dateUtils/dateUtils.service';
-import { join } from 'path';
+import { join, dirname } from 'path';
 
 @Injectable()
 export class FileUtilsService {
@@ -62,12 +62,17 @@ export class FileUtilsService {
   }
 
   async deleteCsvFilesFromUploadsFolder() {
-    const uploadsDirectoryPath = join(__dirname, 'uploads');
+    const distPath = dirname(require.main.filename);
+    const uploadsDirectoryPath = join(distPath, '../src/uploads');
 
     return new Promise((resolve, reject) => {
       readdir(uploadsDirectoryPath, (err, files) => {
         if (err) {
           reject(err);
+        }
+
+        if (files.length === 0) {
+          resolve('No csv files found in the uploads folder');
         }
 
         files.forEach((file) => {

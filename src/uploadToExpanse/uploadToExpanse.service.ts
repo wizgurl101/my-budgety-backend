@@ -95,6 +95,14 @@ export class UploadToExpanseService {
   }
 
   async deleteCsvFiles() {
-    return await this.fileUtilsService.deleteCsvFilesFromUploadsFolder();
+    try {
+      await this.fileUtilsService.deleteCsvFilesFromUploadsFolder();
+      return {
+        message: 'All csv files deleted in uploads folder successfully',
+      };
+    } catch (error) {
+      console.log(error);
+      return { message: 'Failed to delete csv files in uploads folder' };
+    }
   }
 }
