@@ -71,7 +71,7 @@ export class FileUtilsService {
           reject(err);
         }
 
-        if(files.length === 0) {
+        if (files.length === 0) {
           resolve('No csv files found in the uploads folder');
         }
 
