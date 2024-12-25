@@ -30,24 +30,26 @@ export class ExpanseService {
     }
   }
 
-  //todo debug this update query -- Error Invaild query
-  // async update(expanseId: string ,categoryId: string, date: string, name: string, amount: number)
-  // {
-  //   const query = `UPDATE ${this.projectId}.${this.projectName}.expanse `
-  //     + `SET category_id = '${categoryId}', date = '${date}', name = '${name}', amount = ${amount} `
-  //     + `WHERE expanse_id = '${expanseId}'`;
-  //
-  //   try
-  //   {
-  //     console.log(query)
-  //     // await this.bigQueryService.query(query);
-  //     return "expanse updated"
-  //   } catch (error)
-  //   {
-  //     console.log(error)
-  //     return "failed to update expanse"
-  //   }
-  // }
+  async update(
+    expanseId: string,
+    categoryId: string,
+    date: string,
+    name: string,
+    amount: number,
+  ) {
+    const query =
+      `UPDATE ${this.projectId}.${this.projectName}.expanse ` +
+      `SET category_id = '${categoryId}', date = '${date}', name = '${name}', amount = ${amount} ` +
+      `WHERE expanse_id = '${expanseId}'`;
+
+    try {
+      await this.bigQueryService.query(query);
+      return 'expanse updated';
+    } catch (error) {
+      console.log(error);
+      return 'failed to update expanse';
+    }
+  }
 
   async delete(expenseId: string) {
     const query =

@@ -24,17 +24,22 @@ export class ExpanseController {
     return this.expanseService.create(categoryId, date, name, amount);
   }
 
-  //todo debug this update query -- Error Invaild query
-  // @Put(':id')
-  // async update(@Param('id') expanseId: string,
-  //              @Body('updatedCategoryId') updatedCategoryId: string,
-  //              @Body('updatedDate') updatedDate: string,
-  //              @Body('updatedName') updatedName: string,
-  //              @Body('updatedAmount') updatedAmount: number)
-  // {
-  //   return this.expanseService.update(expanseId,updatedCategoryId,
-  //     updatedDate, updatedName, updatedAmount)
-  // }
+  @Put(':id')
+  async update(
+    @Param('id') expanseId: string,
+    @Body('updatedCategoryId') updatedCategoryId: string,
+    @Body('updatedDate') updatedDate: string,
+    @Body('updatedName') updatedName: string,
+    @Body('updatedAmount') updatedAmount: number,
+  ) {
+    return this.expanseService.update(
+      expanseId,
+      updatedCategoryId,
+      updatedDate,
+      updatedName,
+      updatedAmount,
+    );
+  }
 
   @Delete(':id')
   async delete(@Param('id') expanseId: string) {
