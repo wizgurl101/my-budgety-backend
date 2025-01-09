@@ -14,9 +14,9 @@ export class ExpanseService {
     private uuidService: UuidService,
   ) {}
 
-  async getCurrentMonthExpanses(userId: string,
-                                firstDayOfMonthDate: string,
-                                lastDayOfMonthDate: string)
+  async getMonthExpanses(userId: string,
+                         firstDayOfMonthDate: string,
+                         lastDayOfMonthDate: string)
   {
     const query = `SELECT ROW_NUMBER() OVER() AS id, e.category_id, c.name AS categoryName, e.keyword_id, e.name, e.date, e.amount `
       + `FROM ${process.env.PROJECT_ID}.${process.env.PROJECT_NAME}.expanse e `
