@@ -14,6 +14,14 @@ import { ExpanseService } from './expanse.service';
 export class ExpanseController {
   constructor(private readonly expanseService: ExpanseService) {}
 
+  @Get('currentMonth')
+  async getCurrentMonthExpanses(@Body('userId') userId: string,
+                                @Body('firstDayOfMonthDate') firstDayOfMonthDate: string,
+                                @Body('lastDayOfMonthDate') lastDayOfMonthDate: string) {
+    return this.expanseService.getCurrentMonthExpanses(userId,
+      firstDayOfMonthDate, lastDayOfMonthDate);
+  }
+
   @Post()
   async create(
     @Body('categoryId') categoryId: string,
