@@ -29,9 +29,7 @@ export class ExpanseService {
     const params = { user_id: userId,
       firstDayOfMonth_Date: firstDayOfMonthDate,
       lastDayOfMonth_Date: lastDayOfMonthDate };
-
-    console.log(query);
-
+    
     try {
       return await this.bigQueryService.query(query, params);
     } catch (error) {
