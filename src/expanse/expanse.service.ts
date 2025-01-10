@@ -18,17 +18,19 @@ export class ExpanseService {
                          firstDayOfMonthDate: string,
                          lastDayOfMonthDate: string)
   {
-    const query = `SELECT ROW_NUMBER() OVER() AS id, e.category_id, c.name AS categoryName, e.keyword_id, e.name, e.date, e.amount `
+    const query = `SELECT ROW_NUMBER() OVER() AS id, e.category_id, c.name AS categoryName, e.expanse_id, e.name, e.date, e.amount `
       + `FROM ${process.env.PROJECT_ID}.${process.env.PROJECT_NAME}.expanse e `
       + `JOIN ${process.env.PROJECT_ID}.${process.env.PROJECT_NAME}.category c `
       + `ON e.category_id = c.category_id `
-      + `WHERE user_id = @user_id`
+      + `WHERE user_id = @user_id `
       + `AND date >= @firstDayOfMonth_Date `;
       + `AND date <= @lastDayOfMonth_Date`;
 
     const params = { user_id: userId,
       firstDayOfMonth_Date: firstDayOfMonthDate,
       lastDayOfMonth_Date: lastDayOfMonthDate };
+
+    console.log(query);
 
     try {
       return await this.bigQueryService.query(query, params);
