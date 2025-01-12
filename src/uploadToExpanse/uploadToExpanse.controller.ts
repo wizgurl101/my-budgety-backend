@@ -3,7 +3,7 @@ import {
   Post,
   UseInterceptors,
   UploadedFile,
-  Body,
+  Query,
   Delete,
 } from '@nestjs/common';
 import { UploadToExpanseService } from './uploadToExpanse.service';
@@ -55,7 +55,7 @@ export class UploadToExpanseController {
   )
   async uploadCsvToExpanse(
     @UploadedFile() file: Express.Multer.File,
-    @Body('userId') userId: string,
+    @Query('userId') userId: string,
   ) {
     return this.uploadToExpanseService.uploadCsv(file, userId);
   }
