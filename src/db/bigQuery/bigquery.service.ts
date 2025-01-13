@@ -1,24 +1,22 @@
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
 import { BigQuery } from '@google-cloud/bigquery';
 
 @Injectable()
 export class BigQueryService {
-  private readonly bigQuery: BigQuery = new BigQuery({
-    keyFilename: this.configService.get<string>(
-      'GOOGLE_APPLICATION_CREDENTIALS',
-    ),
-    projectId: this.configService.get<string>('GOOGLE_PROJECT_ID'),
-  });
+  private readonly bigQuery: BigQuery;
 
-  constructor(private configService: ConfigService) {
-    this.bigQuery = new BigQuery();
+  constructor() {
+    this.bigQuery = new BigQuery({
+      keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS,
+      projectId: process.env.PROJECT_ID,
+    });
   }
 
   async query(query: string, params?: any) {
     const options = {
       query: query,
       params: params,
+      location: process.env.BIG_QUERY_LOCATION,
     };
 
     const [job] = await this.bigQuery.createQueryJob(options);
