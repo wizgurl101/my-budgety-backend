@@ -9,6 +9,7 @@ import { UploadToExpanseModule } from './uploadToExpanse/uploadToExpanse.module'
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+      ignoreEnvFile: true,
     }),
     CategoryModule,
     KeywordModule,
