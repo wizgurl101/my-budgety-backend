@@ -57,6 +57,7 @@ docker run -d \
   docker exec -it {container-name} sh
 ```
 
+## Swagger UI for the Endpoints
 ### Open the browser and go to the following URL: http://localhost:5000/api-doc
 
 ## How to run the tests
