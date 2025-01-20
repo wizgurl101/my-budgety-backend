@@ -40,10 +40,10 @@ export class CategoryService {
 
     try {
       await this.bigQueryService.query(query);
-      return {message: 'category updated'};
+      return { message: 'category updated' };
     } catch (error) {
       console.log(error);
-      return {message: 'failed to update category'};
+      return { message: 'failed to update category' };
     }
   }
 
@@ -81,10 +81,10 @@ export class CategoryService {
 
     try {
       await this.bigQueryService.query(query);
-      return { message: 'category deleted'};
+      return { message: 'category deleted' };
     } catch (error) {
       console.log(error);
-      return {message: 'failed to delete category'};
+      return { message: 'failed to delete category' };
     }
   }
 

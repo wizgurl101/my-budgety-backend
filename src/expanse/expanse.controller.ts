@@ -15,11 +15,16 @@ export class ExpanseController {
   constructor(private readonly expanseService: ExpanseService) {}
 
   @Get('month')
-  async getMonthExpanses(@Query('userId') userId: string,
-                                @Query('firstDayOfMonthDate') firstDayOfMonthDate: string,
-                                @Query('lastDayOfMonthDate') lastDayOfMonthDate: string) {
-    return this.expanseService.getMonthExpanses(userId,
-      firstDayOfMonthDate, lastDayOfMonthDate);
+  async getMonthExpanses(
+    @Query('userId') userId: string,
+    @Query('firstDayOfMonthDate') firstDayOfMonthDate: string,
+    @Query('lastDayOfMonthDate') lastDayOfMonthDate: string,
+  ) {
+    return this.expanseService.getMonthExpanses(
+      userId,
+      firstDayOfMonthDate,
+      lastDayOfMonthDate,
+    );
   }
 
   @Post()
