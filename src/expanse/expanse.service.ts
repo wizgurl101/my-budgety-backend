@@ -20,7 +20,7 @@ export class ExpanseService {
     lastDayOfMonthDate: string,
   ) {
     const query =
-      `SELECT ROW_NUMBER() OVER() AS id, e.category_id, c.name AS categoryName, e.expanse_id, e.name, e.date, e.amount ` +
+      `SELECT ROW_NUMBER() OVER() AS id, e.category_id, c.name AS categoryName, e.expanse_id, e.name, e.date, e.amount, e.card_name ` +
       `FROM ${process.env.PROJECT_ID}.${process.env.PROJECT_NAME}.expanse e ` +
       `JOIN ${process.env.PROJECT_ID}.${process.env.PROJECT_NAME}.category c ` +
       `ON e.category_id = c.category_id ` +
@@ -42,19 +42,28 @@ export class ExpanseService {
     }
   }
 
-  async create(categoryId: string, date: string, name: string, amount: number) {
+  async create(categoryId: string, date: string, name: string, amount: number, cardName: string) {
     const expanseId = this.uuidService.generate();
     const query =
       `INSERT INTO ${this.projectId}.${this.projectName}.expanse ` +
-      `(expanse_id, category_id, name, date, amount) VALUES ` +
-      `('${expanseId}' , '${categoryId}', '${name}', '${date}', ${amount})`;
+      `(expanse_id, category_id, name, date, amount, cardName) VALUES ` +
+      `(@expanse_id , @category_id, @name, @date, @amount, @card_name)`;
+
+    const params = {
+      expanse_id: expanseId,
+      category_id: categoryId,
+      name: name,
+      date: date,
+      amount: amount,
+      card_name: cardName,
+    }
 
     try {
-      await this.bigQueryService.query(query);
-      return 'new expanse added';
+      await this.bigQueryService.query(query, params);
+      return { message: 'new expanse added'};
     } catch (error) {
       console.log(error);
-      return 'failed to add new expanse';
+      return { message: 'failed to add new expanse'};
     }
   }
 
@@ -64,32 +73,45 @@ export class ExpanseService {
     date: string,
     name: string,
     amount: number,
+    cardName: string
   ) {
     const query =
       `UPDATE ${this.projectId}.${this.projectName}.expanse ` +
-      `SET category_id = '${categoryId}', date = '${date}', name = '${name}', amount = ${amount} ` +
+      `SET category_id = @category_id, date = @date, name = @name, amount = @amount, card_name = @card_name ` +
       `WHERE expanse_id = '${expanseId}'`;
 
+    const params = {
+      category_id: categoryId,
+      date: date,
+      name: name,
+      amount: amount,
+      card_name: cardName,
+    }
+
     try {
-      await this.bigQueryService.query(query);
-      return 'expanse updated';
+      await this.bigQueryService.query(query, params);
+      return { message: 'expanse updated'};
     } catch (error) {
       console.log(error);
-      return 'failed to update expanse';
+      return {message: 'failed to update expanse'};
     }
   }
 
   async delete(expenseId: string) {
     const query =
       `DELETE FROM ${this.projectId}.${this.projectName}.expanse ` +
-      `WHERE expanse_id = '${expenseId}'`;
+      `WHERE expanse_id = @expanse_id`;
+
+    const params = {
+      expanse_id: expenseId,
+    }
 
     try {
-      await this.bigQueryService.query(query);
-      return 'expanse deleted';
+      await this.bigQueryService.query(query, params);
+      return { message: 'expanse deleted'};
     } catch (error) {
       console.log(error);
-      return 'failed to delete expanse';
+      return {message: 'failed to delete expanse'};
     }
   }
 }

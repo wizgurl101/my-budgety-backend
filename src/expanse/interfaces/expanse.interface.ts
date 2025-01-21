@@ -4,4 +4,5 @@ export interface Expanse {
   name: string;
   date: string;
   amount: number;
+  cardName: string;
 }
