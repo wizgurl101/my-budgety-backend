@@ -83,7 +83,7 @@ export class UploadToExpanseService {
             date,
             expanse.name.toLowerCase(),
             expanse.amount,
-            cardName.toLowerCase()
+            cardName.toLowerCase(),
           );
         }
       }

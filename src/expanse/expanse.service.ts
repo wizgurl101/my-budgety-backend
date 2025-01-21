@@ -42,7 +42,13 @@ export class ExpanseService {
     }
   }
 
-  async create(categoryId: string, date: string, name: string, amount: number, cardName: string) {
+  async create(
+    categoryId: string,
+    date: string,
+    name: string,
+    amount: number,
+    cardName: string,
+  ) {
     const expanseId = this.uuidService.generate();
     const query =
       `INSERT INTO ${this.projectId}.${this.projectName}.expanse ` +
@@ -56,14 +62,14 @@ export class ExpanseService {
       date: date,
       amount: amount,
       card_name: cardName,
-    }
+    };
 
     try {
       await this.bigQueryService.query(query, params);
-      return { message: 'new expanse added'};
+      return { message: 'new expanse added' };
     } catch (error) {
       console.log(error);
-      return { message: 'failed to add new expanse'};
+      return { message: 'failed to add new expanse' };
     }
   }
 
@@ -73,7 +79,7 @@ export class ExpanseService {
     date: string,
     name: string,
     amount: number,
-    cardName: string
+    cardName: string,
   ) {
     const query =
       `UPDATE ${this.projectId}.${this.projectName}.expanse ` +
@@ -86,14 +92,14 @@ export class ExpanseService {
       name: name,
       amount: amount,
       card_name: cardName,
-    }
+    };
 
     try {
       await this.bigQueryService.query(query, params);
-      return { message: 'expanse updated'};
+      return { message: 'expanse updated' };
     } catch (error) {
       console.log(error);
-      return {message: 'failed to update expanse'};
+      return { message: 'failed to update expanse' };
     }
   }
 
@@ -104,14 +110,14 @@ export class ExpanseService {
 
     const params = {
       expanse_id: expenseId,
-    }
+    };
 
     try {
       await this.bigQueryService.query(query, params);
-      return { message: 'expanse deleted'};
+      return { message: 'expanse deleted' };
     } catch (error) {
       console.log(error);
-      return {message: 'failed to delete expanse'};
+      return { message: 'failed to delete expanse' };
     }
   }
 }
