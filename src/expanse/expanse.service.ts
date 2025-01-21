@@ -52,7 +52,7 @@ export class ExpanseService {
     const expanseId = this.uuidService.generate();
     const query =
       `INSERT INTO ${this.projectId}.${this.projectName}.expanse ` +
-      `(expanse_id, category_id, name, date, amount, cardName) VALUES ` +
+      `(expanse_id, category_id, name, date, amount, card_name) VALUES ` +
       `(@expanse_id , @category_id, @name, @date, @amount, @card_name)`;
 
     const params = {
