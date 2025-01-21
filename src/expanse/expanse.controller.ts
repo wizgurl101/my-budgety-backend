@@ -33,8 +33,9 @@ export class ExpanseController {
     @Body('date') date: string,
     @Body('name') name: string,
     @Body('amount') amount: number,
+    @Body('cardName') cardName: string,
   ) {
-    return this.expanseService.create(categoryId, date, name, amount);
+    return this.expanseService.create(categoryId, date, name, amount, cardName);
   }
 
   @Put(':id')
@@ -44,6 +45,7 @@ export class ExpanseController {
     @Body('updatedDate') updatedDate: string,
     @Body('updatedName') updatedName: string,
     @Body('updatedAmount') updatedAmount: number,
+    @Body('updatedCardName') updatedCardName: string,
   ) {
     return this.expanseService.update(
       expanseId,
@@ -51,6 +53,7 @@ export class ExpanseController {
       updatedDate,
       updatedName,
       updatedAmount,
+      updatedCardName
     );
   }
 
