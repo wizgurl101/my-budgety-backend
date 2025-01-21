@@ -53,7 +53,7 @@ export class ExpanseController {
       updatedDate,
       updatedName,
       updatedAmount,
-      updatedCardName
+      updatedCardName,
     );
   }
 
