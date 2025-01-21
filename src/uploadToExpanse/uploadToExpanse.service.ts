@@ -60,7 +60,7 @@ export class UploadToExpanseService {
     return [...categoryData];
   }
 
-  async uploadCsv(file: Express.Multer.File, userId: string) {
+  async uploadCsv(file: Express.Multer.File, userId: string, cardName: string) {
     try {
       const CsvData = await this.fileUtilsService.getCsvExpanses(file.path);
       if (CsvData.length === 0) {
@@ -81,8 +81,9 @@ export class UploadToExpanseService {
           await this.expanseService.create(
             category.category_id,
             date,
-            expanse.name,
+            expanse.name.toLowerCase(),
             expanse.amount,
+            cardName.toLowerCase(),
           );
         }
       }
