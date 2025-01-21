@@ -23,10 +23,10 @@ export class KeywordService {
       `('${keywordId}', '${categoryId}', '${name}')`;
     try {
       await this.bigQueryService.query(query);
-      return 'new keyword added';
+      return { message: 'new keyword added' };
     } catch (error) {
       console.log(error);
-      return 'failed to add new keyword';
+      return { message: 'failed to add new keyword' };
     }
   }
 
@@ -37,10 +37,10 @@ export class KeywordService {
 
     try {
       await this.bigQueryService.query(query);
-      return 'keyword updated';
+      return { message: 'keyword updated' };
     } catch (error) {
       console.log(error);
-      return 'failed to update keyword';
+      return { message: 'failed to update keyword' };
     }
   }
 
@@ -106,10 +106,10 @@ export class KeywordService {
 
     try {
       await this.bigQueryService.query(query);
-      return 'keyword deleted';
+      return { message: 'keyword deleted' };
     } catch (error) {
       console.log(error);
-      return 'failed to delete keyword';
+      return { message: 'failed to delete keyword' };
     }
   }
 }
