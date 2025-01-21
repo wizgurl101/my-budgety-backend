@@ -23,9 +23,16 @@ export class CategoryService {
     const query =
       `INSERT INTO ${this.projectId}.${this.projectName}.category ` +
       `(category_id, user_id, name) VALUES ` +
-      `('${categoryId}', '${userId}', '${categoryName}')`;
+      `(@category_id, @user_id, @category_name)`;
+
+    const params = {
+      category_id: categoryId,
+      user_id: userId,
+      category_name: categoryName
+    }
+
     try {
-      await this.bigQueryService.query(query);
+      await this.bigQueryService.query(query, params);
       return { message: 'new category added' };
     } catch (error) {
       console.log(error);
@@ -36,10 +43,15 @@ export class CategoryService {
   async update(categoryId: string, updatedName: string) {
     const query =
       `UPDATE ${this.projectId}.${this.projectName}.category ` +
-      `SET name = '${updatedName}' WHERE category_id = '${categoryId}'`;
+      `SET name = @updated_name WHERE category_id = @category_id`;
+
+    const params = {
+      updated_name: updatedName,
+      category_id: categoryId
+    }
 
     try {
-      await this.bigQueryService.query(query);
+      await this.bigQueryService.query(query, params);
       return { message: 'category updated' };
     } catch (error) {
       console.log(error);
@@ -50,9 +62,12 @@ export class CategoryService {
   async findOne(id: string) {
     const query =
       `SELECT  category_id, name FROM ${this.projectId}.${this.projectName}.category ` +
-      `WHERE category_id = '${id}'`;
+      `WHERE category_id = @category_id`;
+
+    const params = { category_id: id };
+
     try {
-      return await this.bigQueryService.query(query);
+      return await this.bigQueryService.query(query, params);
     } catch (error) {
       console.log(error);
       return [];
@@ -77,10 +92,12 @@ export class CategoryService {
   async delete(categoryId: string) {
     const query =
       `DELETE FROM ${this.projectId}.${this.projectName}.category ` +
-      `WHERE category_id = '${categoryId}'`;
+      `WHERE category_id = @category_id`;
+
+    const params = { category_id: categoryId };
 
     try {
-      await this.bigQueryService.query(query);
+      await this.bigQueryService.query(query, params);
       return { message: 'category deleted' };
     } catch (error) {
       console.log(error);
