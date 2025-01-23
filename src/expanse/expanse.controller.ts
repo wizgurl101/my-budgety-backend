@@ -61,4 +61,17 @@ export class ExpanseController {
   async delete(@Param('id') expanseId: string) {
     return this.expanseService.delete(expanseId);
   }
+
+  @Get('monthTotal')
+  async getMonthTotal(
+    @Query('userId') userId: string,
+    @Query('firstDayOfMonthDate') firstDayOfMonthDate: string,
+    @Query('lastDayOfMonthDate') lastDayOfMonthDate: string,
+  ) {
+    return this.expanseService.getMonthTotal(
+      userId,
+      firstDayOfMonthDate,
+      lastDayOfMonthDate,
+    );
+  }
 }
