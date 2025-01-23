@@ -22,8 +22,8 @@ export class MonthlyBudgetService {
       user_id: userId,
       year,
       month,
-      budget
-    }
+      budget,
+    };
 
     try {
       await this.bigQueryService.query(query, params);
@@ -36,7 +36,7 @@ export class MonthlyBudgetService {
 
   async getMonthBudget(userId: string, year: number, month: number) {
     const query =
-      `SELECT budget_amount `+
+      `SELECT budget_amount ` +
       `FROM ${this.projectId}.${this.projectName}.monthlyBudget ` +
       `WHERE user_id = '${userId}' ` +
       `AND year = ${year} ` +
@@ -50,7 +50,12 @@ export class MonthlyBudgetService {
     }
   }
 
-  async updateMonthBudget(userId: string, year: number, month: number, budgetAmount: number) {
+  async updateMonthBudget(
+    userId: string,
+    year: number,
+    month: number,
+    budgetAmount: number,
+  ) {
     const query =
       `UPDATE ${this.projectId}.${this.projectName}.monthlyBudget ` +
       `SET budget_amount = @budget_amount ` +
@@ -62,8 +67,8 @@ export class MonthlyBudgetService {
       user_id: userId,
       year: year,
       month: month,
-      budget_amount: budgetAmount
-    }
+      budget_amount: budgetAmount,
+    };
 
     try {
       await this.bigQueryService.query(query, params);

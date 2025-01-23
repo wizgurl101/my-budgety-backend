@@ -28,8 +28,8 @@ export class CategoryService {
     const params = {
       category_id: categoryId,
       user_id: userId,
-      category_name: categoryName
-    }
+      category_name: categoryName,
+    };
 
     try {
       await this.bigQueryService.query(query, params);
@@ -47,8 +47,8 @@ export class CategoryService {
 
     const params = {
       updated_name: updatedName,
-      category_id: categoryId
-    }
+      category_id: categoryId,
+    };
 
     try {
       await this.bigQueryService.query(query, params);
@@ -131,6 +131,35 @@ export class CategoryService {
       return categories;
     } catch (error) {
       return error;
+    }
+  }
+
+  async getCategoriesSpendAmount(
+    userId: string,
+    firstDayOfMonth: string,
+    lastDayOfMonth: string,
+  ) {
+    const query =
+      `SELECT c.name, SUM(e.amount) as total ` +
+      `FROM ${this.projectId}.${this.projectName}.expanse e ` +
+      `JOIN ${this.projectId}.${this.projectName}.category c ` +
+      `ON e.category_id = c.category_id ` +
+      `WHERE e.user_id = @user_id ` +
+      `AND e.date >= @firstDayOfMonth_Date ` +
+      `AND e.date <= @lastDayOfMonth_Date ` +
+      `GROUP BY c.category_id, c.name, c.user_id `;
+
+    const params = {
+      user_id: userId,
+      firstDayOfMonth_Date: firstDayOfMonth,
+      lastDayOfMonth_Date: lastDayOfMonth,
+    };
+
+    try {
+      return await this.bigQueryService.query(query, params);
+    } catch (error) {
+      console.log(error);
+      return [];
     }
   }
 }

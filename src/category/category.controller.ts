@@ -24,6 +24,19 @@ export class CategoryController {
     return this.categoryService.findAll(userId);
   }
 
+  @Get('categoryMonthSpendAmount')
+  async categoryMonthSpendAmount(
+    @Query('userId') userId: string,
+    @Query('firstDayOfMonthDate') firstDayOfMonthDate: string,
+    @Query('lastDayOfMonthDate') lastDayOfMonthDate: string,
+  ) {
+    return this.categoryService.getCategoriesSpendAmount(
+      userId,
+      firstDayOfMonthDate,
+      lastDayOfMonthDate,
+    );
+  }
+
   @Post()
   async create(
     @Body('userId') userId: string,
