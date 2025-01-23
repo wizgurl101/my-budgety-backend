@@ -5,6 +5,7 @@ import { KeywordModule } from './keyword/keyword.module';
 import { ExpanseModule } from './expanse/expanse.module';
 import { UploadToExpanseModule } from './uploadToExpanse/uploadToExpanse.module';
 import { CardTypeModule } from './cardType/cardtype.module';
+import { MonthlyBudgetModule} from './monthlyBudget/monthlyBudget.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { CardTypeModule } from './cardType/cardtype.module';
     ExpanseModule,
     UploadToExpanseModule,
     CardTypeModule,
+    MonthlyBudgetModule
   ],
 })
 export class AppModule {}
