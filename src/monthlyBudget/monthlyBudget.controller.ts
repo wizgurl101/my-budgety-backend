@@ -24,7 +24,7 @@ export class MonthlyBudgetController {
     return this.monthlyBudgetService.create(userId, year, month, budgetAmount);
   }
 
-  @Get('monthBudget')
+  @Get('amount')
   async getMonthBudget(
     @Query('userId') userId: string,
     @Query('year') year: number,
@@ -33,7 +33,7 @@ export class MonthlyBudgetController {
     return this.monthlyBudgetService.getMonthBudget(userId, year, month);
   }
 
-  @Put('updateBudgetAmount')
+  @Put('updateAmount')
   async updateMonthBudget(
     @Body('userId') userId: string,
     @Body('year') year: number,

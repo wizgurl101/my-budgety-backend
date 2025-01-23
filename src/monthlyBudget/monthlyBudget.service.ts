@@ -36,22 +36,17 @@ export class MonthlyBudgetService {
 
   async getMonthBudget(userId: string, year: number, month: number) {
     const query =
-      `SELECT  budget_amount `+
+      `SELECT budget_amount `+
       `FROM ${this.projectId}.${this.projectName}.monthlyBudget ` +
-      `WHERE user_id = @user_id AND year = @year AND month = @month`;
-
-    const params = {
-      user_id: userId,
-      year,
-      month
-    }
+      `WHERE user_id = '${userId}' ` +
+      `AND year = ${year} ` +
+      `AND month = ${month}`;
 
     try {
-      const [rows] = await this.bigQueryService.query(query, params);
-      return rows[0];
+      return await this.bigQueryService.query(query);
     } catch (error) {
       console.log(error);
-      return 0;
+      return { message: 'failed to get monthly budget amount' };
     }
   }
 
@@ -59,7 +54,9 @@ export class MonthlyBudgetService {
     const query =
       `UPDATE ${this.projectId}.${this.projectName}.monthlyBudget ` +
       `SET budget_amount = @budget_amount ` +
-      `WHERE user_id = @user_id AND year = @year AND month = @month`;
+      `WHERE user_id = @user_id ` +
+      `AND year = @year ` +
+      `AND month = @month`;
 
     const params = {
       user_id: userId,
