@@ -6,7 +6,7 @@ In addition, to help me learn and practice the NestJS framework and typescript.
 
 ## Dev Setup
 
-### Add a .env file to the root folder of the project with the following content:
+### Add an .env file to the root folder of the project with the following content:
 
 - GOOGLE_APPLICATION_CREDENTIALS="{unknown}"
 - PROJECT_ID="{unknown}"
