@@ -40,6 +40,11 @@ export class MonthlyBudgetController {
     @Body('month') month: number,
     @Body('budget_amount') budgetAmount: number,
   ) {
-    return this.monthlyBudgetService.updateMonthBudget(userId, year, month, budgetAmount);
+    return this.monthlyBudgetService.updateMonthBudget(
+      userId,
+      year,
+      month,
+      budgetAmount,
+    );
   }
 }

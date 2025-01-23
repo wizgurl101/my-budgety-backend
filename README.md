@@ -32,6 +32,15 @@ $ npm run start
 ```bash
     gcloud auth application-default login
 ```
+### Go to app.module.ts
+```Javascript
+    ConfigModule.forRoot({
+    isGlobal: true,
+    ignoreEnvFile: true,
+})
+```
+So that Docker will use the environment variables during runtime.
+
 
 Upon successful login, the path to the service account name json will be displayed in the terminal. Copy the path to be stored in GOOGLE_APPLICATION_CREDENTIALS environment variable.
 
@@ -56,6 +65,26 @@ docker run -d \
 ```bash
   docker exec -it {container-name} sh
 ```
+
+---
+
+## Debugging Tips
+
+If there is issue connecting to Google Cloud Service, 
+
+### Go to app.module.ts 
+```Javascript
+    ConfigModule.forRoot({
+    isGlobal: true,
+    ignoreEnvFile: false,
+})
+```
+Make sure ignoreEnvFile is set to false. This was set to true when using docker.
+
+### Make sure the path to the service account name json is correct in the .env file
+On Windows, use / in the path
+
+---
 
 ## Swagger UI for the Endpoints
 ### Open the browser and go to the following URL: http://localhost:5000/api-doc
