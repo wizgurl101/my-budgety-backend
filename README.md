@@ -57,6 +57,26 @@ docker run -d \
   docker exec -it {container-name} sh
 ```
 
+---
+
+## Debugging Tips
+
+If there is issue connecting to Google Cloud Service, 
+
+### Go to app.module.ts 
+```Javascript
+    ConfigModule.forRoot({
+    isGlobal: true,
+    ignoreEnvFile: false,
+}),
+```
+Make sure ignoreEnvFile is set to false. This was set to true when using docker.
+
+### Make sure the path to the service account name json is correct in the .env file
+On Windows, use / in the path
+
+---
+
 ## Swagger UI for the Endpoints
 ### Open the browser and go to the following URL: http://localhost:5000/api-doc
 
