@@ -14,6 +14,19 @@ import { CategoryService } from './category.service';
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 
+  @Get('categoryMonthSpendAmount')
+  async categoryMonthSpendAmount(
+    @Query('userId') userId: string,
+    @Query('firstDayOfMonthDate') firstDayOfMonthDate: string,
+    @Query('lastDayOfMonthDate') lastDayOfMonthDate: string,
+  ) {
+    return this.categoryService.getCategoryMonthSpendAmount(
+      userId,
+      firstDayOfMonthDate,
+      lastDayOfMonthDate,
+    );
+  }
+
   @Get(':id')
   async findOne(@Param('id') id: string) {
     return this.categoryService.findOne(id);
@@ -22,19 +35,6 @@ export class CategoryController {
   @Get()
   async findAll(@Query('userId') userId: string) {
     return this.categoryService.findAll(userId);
-  }
-
-  @Get('categoryMonthSpendAmount')
-  async categoryMonthSpendAmount(
-    @Query('userId') userId: string,
-    @Query('firstDayOfMonthDate') firstDayOfMonthDate: string,
-    @Query('lastDayOfMonthDate') lastDayOfMonthDate: string,
-  ) {
-    return this.categoryService.getCategoriesSpendAmount(
-      userId,
-      firstDayOfMonthDate,
-      lastDayOfMonthDate,
-    );
   }
 
   @Post()

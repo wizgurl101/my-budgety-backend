@@ -134,7 +134,7 @@ export class CategoryService {
     }
   }
 
-  async getCategoriesSpendAmount(
+  async getCategoryMonthSpendAmount(
     userId: string,
     firstDayOfMonth: string,
     lastDayOfMonth: string,
@@ -144,10 +144,10 @@ export class CategoryService {
       `FROM ${this.projectId}.${this.projectName}.expanse e ` +
       `JOIN ${this.projectId}.${this.projectName}.category c ` +
       `ON e.category_id = c.category_id ` +
-      `WHERE e.user_id = @user_id ` +
+      `WHERE c.user_id = @user_id ` +
       `AND e.date >= @firstDayOfMonth_Date ` +
       `AND e.date <= @lastDayOfMonth_Date ` +
-      `GROUP BY c.category_id, c.name, c.user_id `;
+      `GROUP BY c.category_id, c.name, c.user_id`;
 
     const params = {
       user_id: userId,
