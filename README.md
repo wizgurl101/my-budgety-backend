@@ -37,7 +37,7 @@ Upon successful login, the path to the service account name json will be display
 
 ### Build the image
 ```bash
-    docker build -t my-budgety-api .
+    docker build --no-cache -t my-budgety-api .
 ```
 
 ### Run the image
