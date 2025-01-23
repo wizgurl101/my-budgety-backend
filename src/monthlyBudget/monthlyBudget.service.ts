@@ -33,4 +33,47 @@ export class MonthlyBudgetService {
       return { message: 'failed to add new monthly budget' };
     }
   }
+
+  async getMonthBudget(userId: string, year: number, month: number) {
+    const query =
+      `SELECT  budget_amount `+
+      `FROM ${this.projectId}.${this.projectName}.monthlyBudget ` +
+      `WHERE user_id = @user_id AND year = @year AND month = @month`;
+
+    const params = {
+      user_id: userId,
+      year,
+      month
+    }
+
+    try {
+      const [rows] = await this.bigQueryService.query(query, params);
+      return rows[0];
+    } catch (error) {
+      console.log(error);
+      return 0;
+    }
+  }
+
+  async updateMonthBudget(userId: string, year: number, month: number, budgetAmount: number) {
+    const query =
+      `UPDATE ${this.projectId}.${this.projectName}.monthlyBudget ` +
+      `SET budget_amount = @budget_amount ` +
+      `WHERE user_id = @user_id AND year = @year AND month = @month`;
+
+    const params = {
+      user_id: userId,
+      year: year,
+      month: month,
+      budget_amount: budgetAmount
+    }
+
+    try {
+      await this.bigQueryService.query(query, params);
+      return { message: 'monthly budget amount updated' };
+    } catch (error) {
+      console.log(error);
+      return { message: 'failed to update monthly budget amount' };
+    }
+  }
 }

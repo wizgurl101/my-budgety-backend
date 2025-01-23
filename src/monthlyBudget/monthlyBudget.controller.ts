@@ -19,8 +19,27 @@ export class MonthlyBudgetController {
     @Body('userId') userId: string,
     @Body('year') year: number,
     @Body('month') month: number,
-    @Body('budget') budget: number,
+    @Body('budget_amount') budgetAmount: number,
   ) {
-    return this.monthlyBudgetService.create(userId, year, month, budget);
+    return this.monthlyBudgetService.create(userId, year, month, budgetAmount);
+  }
+
+  @Get('monthBudget')
+  async getMonthBudget(
+    @Query('userId') userId: string,
+    @Query('year') year: number,
+    @Query('month') month: number,
+  ) {
+    return this.monthlyBudgetService.getMonthBudget(userId, year, month);
+  }
+
+  @Put('updateBudgetAmount')
+  async updateMonthBudget(
+    @Body('userId') userId: string,
+    @Body('year') year: number,
+    @Body('month') month: number,
+    @Body('budget_amount') budgetAmount: number,
+  ) {
+    return this.monthlyBudgetService.updateMonthBudget(userId, year, month, budgetAmount);
   }
 }
