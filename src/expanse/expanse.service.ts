@@ -21,12 +21,70 @@ export class ExpanseService {
   ) {
     const query =
       `SELECT ROW_NUMBER() OVER() AS id, e.category_id, c.name AS categoryName, e.expanse_id, e.name, e.date, e.amount, e.card_name ` +
-      `FROM ${process.env.PROJECT_ID}.${process.env.PROJECT_NAME}.expanse e ` +
-      `JOIN ${process.env.PROJECT_ID}.${process.env.PROJECT_NAME}.category c ` +
+      `FROM ${this.projectId}.${this.projectName}.expanse e ` +
+      `JOIN ${this.projectId}.${this.projectName}.category c ` +
       `ON e.category_id = c.category_id ` +
       `WHERE user_id = @user_id ` +
       `AND date >= @firstDayOfMonth_Date `;
     +`AND date <= @lastDayOfMonth_Date`;
+
+    const params = {
+      user_id: userId,
+      firstDayOfMonth_Date: firstDayOfMonthDate,
+      lastDayOfMonth_Date: lastDayOfMonthDate,
+    };
+
+    try {
+      return await this.bigQueryService.query(query, params);
+    } catch (error) {
+      console.log(error);
+      return [];
+    }
+  }
+
+  async get5LatestExpanses(
+    userId: string,
+    firstDayOfMonthDate: string,
+    lastDayOfMonthDate: string,
+  ) {
+    const query =
+      `SELECT ROW_NUMBER() OVER() AS id, e.category_id, c.name AS categoryName, e.expanse_id, e.name, e.date, e.amount, e.card_name ` +
+      `FROM ${this.projectId}.${this.projectName}.expanse e ` +
+      `JOIN ${this.projectId}.${this.projectName}.category c ` +
+      `ON e.category_id = c.category_id ` +
+      `WHERE user_id = @user_id ` +
+      `AND date >= @firstDayOfMonth_Date ` +
+      `AND date <= @lastDayOfMonth_Date ` +
+      `ORDER BY e.date DESC ` +
+      `LIMIT 5`;
+
+    const params = {
+      user_id: userId,
+      firstDayOfMonth_Date: firstDayOfMonthDate,
+      lastDayOfMonth_Date: lastDayOfMonthDate,
+    };
+
+    try {
+      return await this.bigQueryService.query(query, params);
+    } catch (error) {
+      console.log(error);
+      return [];
+    }
+  }
+
+  async getMonthTotal(
+    userId: string,
+    firstDayOfMonthDate: string,
+    lastDayOfMonthDate: string,
+  ) {
+    const query =
+      `SELECT SUM(e.amount) as total ` +
+      `FROM ${this.projectId}.${this.projectName}.expanse e ` +
+      `JOIN ${this.projectId}.${this.projectName}.category c ` +
+      `ON e.category_id = c.category_id ` +
+      `WHERE user_id = @user_id ` +
+      `AND date >= @firstDayOfMonth_Date ` +
+      `AND date <= @lastDayOfMonth_Date`;
 
     const params = {
       user_id: userId,
