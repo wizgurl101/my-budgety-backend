@@ -74,4 +74,17 @@ export class ExpanseController {
       lastDayOfMonthDate,
     );
   }
+
+  @Get('monthLatest5')
+  async getMonthLatest5(
+    @Query('userId') userId: string,
+    @Query('firstDayOfMonthDate') firstDayOfMonthDate: string,
+    @Query('lastDayOfMonthDate') lastDayOfMonthDate: string,
+  ) {
+    return this.expanseService.get5LatestExpanses(
+      userId,
+      firstDayOfMonthDate,
+      lastDayOfMonthDate,
+    );
+  }
 }
