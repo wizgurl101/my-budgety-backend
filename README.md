@@ -70,7 +70,7 @@ docker run -d \
 
 ## Debugging Tips
 
-If there is issue connecting to Google Cloud Service, 
+If there is issue connecting to Google Cloud Service when running the app locally (using npm run start)
 
 ### Go to app.module.ts 
 ```Javascript
