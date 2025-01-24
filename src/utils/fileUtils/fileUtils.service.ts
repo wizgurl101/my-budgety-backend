@@ -42,15 +42,17 @@ export class FileUtilsService {
           let name = items[1].toLowerCase();
           let amount = items[2];
 
-          if (!name.includes('payment') || !name.includes('rewards redemption')) {
-            let csv_expanse: CsvExpanse = {
-              date: this.dateUtilsService.getDateTimeFromStr(date),
-              name: name,
-              amount: Number(amount),
-              used: false,
-            };
+          if (!name.includes('payment')) {
+            if (!name.includes('rewards redemption')) {
+              let csv_expanse: CsvExpanse = {
+                date: this.dateUtilsService.getDateTimeFromStr(date),
+                name: name,
+                amount: Number(amount),
+                used: false,
+              };
 
-            csv_expanses.push(csv_expanse);
+              csv_expanses.push(csv_expanse);
+            }
           }
         }
       });
