@@ -28,7 +28,7 @@ export class CategoryService {
     const params = {
       category_id: categoryId,
       user_id: userId,
-      category_name: categoryName,
+      category_name: categoryName.toLowerCase(),
     };
 
     try {
@@ -46,7 +46,7 @@ export class CategoryService {
       `SET name = @updated_name WHERE category_id = @category_id`;
 
     const params = {
-      updated_name: updatedName,
+      updated_name: updatedName.toLowerCase(),
       category_id: categoryId,
     };
 
