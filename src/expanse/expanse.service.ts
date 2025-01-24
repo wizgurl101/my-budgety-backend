@@ -116,10 +116,10 @@ export class ExpanseService {
     const params = {
       expanse_id: expanseId,
       category_id: categoryId,
-      name: name,
+      name: name.toLowerCase(),
       date: date,
       amount: amount,
-      card_name: cardName,
+      card_name: cardName.toLowerCase(),
     };
 
     try {
@@ -147,9 +147,9 @@ export class ExpanseService {
     const params = {
       category_id: categoryId,
       date: date,
-      name: name,
+      name: name.toLowerCase(),
       amount: amount,
-      card_name: cardName,
+      card_name: cardName.toLowerCase(),
     };
 
     try {

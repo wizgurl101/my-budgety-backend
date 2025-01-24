@@ -20,9 +20,15 @@ export class KeywordService {
     const query =
       `INSERT INTO ${this.projectId}.${this.projectName}.keywords ` +
       `(keyword_id, category_id, name) VALUES ` +
-      `('${keywordId}', '${categoryId}', '${name}')`;
+      `(@keyword_id, @category_id, @name)`;
+
+    const params = {
+      keyword_id: keywordId,
+      category_id: categoryId,
+      name: name.toLowerCase(),
+    };
     try {
-      await this.bigQueryService.query(query);
+      await this.bigQueryService.query(query, params);
       return { message: 'new keyword added' };
     } catch (error) {
       console.log(error);
@@ -33,10 +39,15 @@ export class KeywordService {
   async update(id: string, updatedName: string) {
     const query =
       `UPDATE ${this.projectId}.${this.projectName}.keywords ` +
-      `SET name = '${updatedName}' WHERE keyword_id = '${id}'`;
+      `SET name = @updated_name WHERE keyword_id = @keyword_id`;
+
+    const params = {
+      updated_name: updatedName.toLowerCase(),
+      keyword_id: id,
+    };
 
     try {
-      await this.bigQueryService.query(query);
+      await this.bigQueryService.query(query, params);
       return { message: 'keyword updated' };
     } catch (error) {
       console.log(error);

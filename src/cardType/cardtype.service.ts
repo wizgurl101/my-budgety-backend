@@ -60,7 +60,7 @@ export class CardTypeService {
       `SET name = @updated_name WHERE card_id = @card_Id`;
 
     const params = {
-      updated_name: updatedName,
+      updated_name: updatedName.toLowerCase(),
       card_Id: cardId,
     };
 
