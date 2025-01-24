@@ -42,7 +42,7 @@ export class FileUtilsService {
           let name = items[1].toLowerCase();
           let amount = items[2];
 
-          if (!name.includes('payment')) {
+          if (!name.includes('payment') || !name.includes('rewards redemption')) {
             let csv_expanse: CsvExpanse = {
               date: this.dateUtilsService.getDateTimeFromStr(date),
               name: name,
