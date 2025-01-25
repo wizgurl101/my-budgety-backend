@@ -25,8 +25,8 @@ export class ExpanseService {
       `JOIN ${this.projectId}.${this.projectName}.category c ` +
       `ON e.category_id = c.category_id ` +
       `WHERE user_id = @user_id ` +
-      `AND date >= @firstDayOfMonth_Date `;
-    +`AND date <= @lastDayOfMonth_Date`;
+      `AND date >= @firstDayOfMonth_Date ` +
+      `AND date <= @lastDayOfMonth_Date`;
 
     const params = {
       user_id: userId,

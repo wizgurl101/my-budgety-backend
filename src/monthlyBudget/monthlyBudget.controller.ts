@@ -1,11 +1,4 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Put,
-  Query,
-  Body,
-} from '@nestjs/common';
+import { Controller, Get, Post, Put, Query, Body } from '@nestjs/common';
 import { MonthlyBudgetService } from './monthlyBudget.service';
 
 @Controller('monthlyBudget')
