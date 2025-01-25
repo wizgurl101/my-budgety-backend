@@ -28,7 +28,7 @@ export class UploadToExpanseService {
     categoryData: Category[],
   ): Category[] {
     categoryData.forEach((category) => {
-      let categoryExpense = [];
+      const categoryExpense = [];
       const keywords = category.keywords;
 
       if (keywords.length > 0) {
@@ -51,10 +51,10 @@ export class UploadToExpanseService {
 
     const unusedExpenses = csvData.filter((expense) => expense.used === false);
 
-    let misc_category_index = categoryData.findIndex(
+    const misc_category_index = categoryData.findIndex(
       (category) => category.name === MISC_CATEGORY_NAME,
     );
-    let misc_category = categoryData[misc_category_index];
+    const misc_category = categoryData[misc_category_index];
     misc_category.expanses = [...unusedExpenses];
 
     return [...categoryData];

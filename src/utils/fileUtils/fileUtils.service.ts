@@ -12,7 +12,7 @@ export class FileUtilsService {
     const readStream = createReadStream(filepath, { encoding: 'utf8' });
 
     return new Promise((resolve, reject) => {
-      let dataList = [];
+      const dataList = [];
       readStream.on('data', (data) => {
         dataList.push(data);
       });
@@ -28,23 +28,23 @@ export class FileUtilsService {
   }
 
   async getCsvExpanses(filepath: string): Promise<CsvExpanse[]> {
-    let csv_expanses: CsvExpanse[] = [];
+    const csv_expanses: CsvExpanse[] = [];
 
     try {
       const data = await this.getDataFromCsv(filepath);
-      let expansesData = data[0].split('\r\n');
+      const expansesData = data[0].split('\r\n');
 
       expansesData.forEach((e) => {
-        let items = e.split(',');
+        const items = e.split(',');
 
         if (items.length > 1) {
-          let date = items[0];
-          let name = items[1].toLowerCase();
-          let amount = items[2];
+          const date = items[0];
+          const name = items[1].toLowerCase();
+          const amount = items[2];
 
           if (!name.includes('payment')) {
             if (!name.includes('rewards redemption')) {
-              let csv_expanse: CsvExpanse = {
+              const csv_expanse: CsvExpanse = {
                 date: this.dateUtilsService.getDateTimeFromStr(date),
                 name: name,
                 amount: Number(amount),
