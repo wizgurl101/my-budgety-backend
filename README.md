@@ -6,6 +6,11 @@ In addition, to help me learn and practice the NestJS framework and typescript.
 
 ## Dev Setup
 
+### Setup pre-commit hooks
+
+1.  Copy the file pre-commit.sample to .git/hooks/pre-commit
+2.  Removed the .sample extension and deleted the pre-commit file in the .git/hooks folder
+
 ### Add an .env file to the root folder of the project with the following content:
 
 - GOOGLE_APPLICATION_CREDENTIALS="{unknown}"
