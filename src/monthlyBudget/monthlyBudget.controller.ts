@@ -11,7 +11,11 @@ export class MonthlyBudgetController {
     @Body('year') year: number,
     @Body('budget_amount') budgetAmount: number,
   ) {
-    return this.monthlyBudgetService.setBudgetForYear(userId, year, budgetAmount);
+    return this.monthlyBudgetService.setBudgetForYear(
+      userId,
+      year,
+      budgetAmount,
+    );
   }
 
   @Post()
