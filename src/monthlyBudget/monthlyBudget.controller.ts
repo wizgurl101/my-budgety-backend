@@ -5,6 +5,15 @@ import { MonthlyBudgetService } from './monthlyBudget.service';
 export class MonthlyBudgetController {
   constructor(private readonly monthlyBudgetService: MonthlyBudgetService) {}
 
+  @Post('yearBudget')
+  async setYearBudget(
+    @Body('userId') userId: string,
+    @Body('year') year: number,
+    @Body('budget_amount') budgetAmount: number,
+  ) {
+    return this.monthlyBudgetService.setBudgetForYear(userId, year, budgetAmount);
+  }
+
   @Post()
   async create(
     @Body('userId') userId: string,

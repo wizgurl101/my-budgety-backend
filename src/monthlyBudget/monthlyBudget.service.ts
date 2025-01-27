@@ -78,4 +78,23 @@ export class MonthlyBudgetService {
       return { message: 'failed to update monthly budget amount' };
     }
   }
+
+  async setBudgetForYear(
+    userId: string,
+    year: number,
+    amount: number
+  ) {
+    const promises = [];
+      for (let i = 1; i <= 12; i++) {
+        promises.push(this.create(userId, year, i, amount));
+      }
+
+      try {
+        await Promise.all(promises);
+        return { message: 'monthly budget for year set' };
+      } catch (error) {
+        console.log(error);
+        return { message: 'failed to set monthly budget for year' };
+      }
+  }
 }
