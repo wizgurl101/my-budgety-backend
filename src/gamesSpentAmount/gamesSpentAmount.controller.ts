@@ -1,13 +1,4 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Put,
-  Delete,
-  Param,
-  Query,
-  Body,
-} from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { GamesSpentAmountService } from './gamesSpentAmount.service';
 
 @Controller('gamesSpentAmount')

@@ -13,6 +13,8 @@ export class GamesSpentAmountService {
   ) {}
 
   async getLadsYearSpentAmount(userId: string, year: string) {
+    console.log('userId', userId);
+    console.log('year', year);
     return 0;
   }
 }
