@@ -29,7 +29,7 @@ export class GamesSpentAmountService {
       return await this.bigQueryService.query(query, params);
     } catch (error) {
       console.log(error);
-      return { total: 0 };
+      return [{ total: 0 }];
     }
   }
 }
