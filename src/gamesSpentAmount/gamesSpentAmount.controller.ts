@@ -7,11 +7,8 @@ export class GamesSpentAmountController {
     private readonly gamesSpentAmountService: GamesSpentAmountService,
   ) {}
 
-  @Get()
-  async getLadsYearAmount(
-    @Query('userId') userId: string,
-    @Query('year') year: string,
-  ) {
-    return this.gamesSpentAmountService.getLadsYearSpentAmount(userId, year);
+  @Get('ladsYearAmount')
+  async getLadsYearAmount(@Query('year') year: string) {
+    return this.gamesSpentAmountService.getLadsYearSpentAmount(year);
   }
 }
