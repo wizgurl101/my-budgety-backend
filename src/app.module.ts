@@ -7,6 +7,7 @@ import { UploadToExpanseModule } from './uploadToExpanse/uploadToExpanse.module'
 import { CardTypeModule } from './cardType/cardtype.module';
 import { MonthlyBudgetModule } from './monthlyBudget/monthlyBudget.module';
 import { GamesSpentAmountModule } from './gamesSpentAmount/gamesSpentAmount.module';
+import { CategoryItemModule } from './categoryItem/categoryItem.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { GamesSpentAmountModule } from './gamesSpentAmount/gamesSpentAmount.modu
     CardTypeModule,
     MonthlyBudgetModule,
     GamesSpentAmountModule,
+    CategoryItemModule,
   ],
 })
 export class AppModule {}
