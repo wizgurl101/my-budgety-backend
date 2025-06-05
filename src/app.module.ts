@@ -8,6 +8,7 @@ import { CardTypeModule } from './cardType/cardtype.module';
 import { MonthlyBudgetModule } from './monthlyBudget/monthlyBudget.module';
 import { GamesSpentAmountModule } from './gamesSpentAmount/gamesSpentAmount.module';
 import { CategoryItemModule } from './categoryItem/categoryItem.module';
+import { SubCategoryModule } from './subcategory/subcategory.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { CategoryItemModule } from './categoryItem/categoryItem.module';
     MonthlyBudgetModule,
     GamesSpentAmountModule,
     CategoryItemModule,
+    SubCategoryModule,
   ],
 })
 export class AppModule {}
