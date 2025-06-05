@@ -14,25 +14,86 @@ export class CategoryItemService {
     private uuidService: UuidService,
   ) {}
 
-  // async create(categoryId: string, itemName: string) {
-  //   const categoryItemId = this.uuidService.generate();
-  //   const query =
-  //     `INSERT INTO ${this.projectId}.${this.projectName}.category ` +
-  //     `(category_id, user_id, name) VALUES ` +
-  //     `(@category_id, @user_id, @category_name)`;
+  async create(
+    categoryId: string,
+    itemName: string,
+    startDate: string,
+    endDate: string,
+  ) {
+    const categoryItemId = this.uuidService.generate();
+    const query =
+      `INSERT INTO ${this.projectId}.${this.projectName}.categoryItem ` +
+      `(category_id, category_item_id, name, start_date, end_date) VALUES ` +
+      `(@category_id, @category_item_id, @name, @start_date, @end_date)`;
 
-  //   return { message: 'CategoryItemService create method not implemented' };
-  // }
+    const params = {
+      category_id: categoryId,
+      category_item_id: categoryItemId,
+      start_date: startDate,
+      end_date: endDate,
+      name: itemName.toLowerCase(),
+    };
+    try {
+      await this.bigQueryService.query(query, params);
+      return { message: 'new category item added' };
+    } catch (error) {
+      console.log(error);
+      return { message: 'failed to add new category item' };
+    }
+  }
 
-  // async update() {
-  //   return { message: 'CategoryItemService update method not implemented' };
-  // }
+  async update(
+    categoryId: string,
+    categoryItemId: string,
+    updatedName: string,
+  ) {
+    const query =
+      `UPDATE ${this.projectId}.${this.projectName}.categoryItem ` +
+      `SET name = @updated_name, category_id = @category_id WHERE category_item_id = @category_item_id`;
 
-  // async findAll() {
-  //   return { message: 'CategoryItemService findAll method not implemented' };
-  // }
+    const params = {
+      updated_name: updatedName.toLowerCase(),
+      category_id: categoryId,
+      category_item_id: categoryItemId,
+    };
 
-  // async delete(categoryItemId: string) {
-  //   return { message: 'CategoryItemService delete method not implemented' };
-  // }
+    try {
+      await this.bigQueryService.query(query, params);
+      return { message: 'category item updated' };
+    } catch (error) {
+      console.log(error);
+      return { message: 'failed to update category item' };
+    }
+  }
+
+  async findAllByCategory(categoryId: string) {
+    const query =
+      `SELECT ROW_NUMBER() OVER() AS id, category_item_id, name FROM ${this.projectId}.${this.projectName}.categoryItem ` +
+      `WHERE category_id = @category_id`;
+
+    const params = { category_id: categoryId };
+
+    try {
+      return await this.bigQueryService.query(query, params);
+    } catch (error) {
+      console.log(error);
+      return [];
+    }
+  }
+
+  async delete(categoryItemId: string) {
+    const query =
+      `DELETE FROM ${this.projectId}.${this.projectName}.categoryItem ` +
+      `WHERE category_item_id = @category_item_id`;
+
+    const params = { category_item_id: categoryItemId };
+
+    try {
+      await this.bigQueryService.query(query, params);
+      return { message: 'category item deleted' };
+    } catch (error) {
+      console.log(error);
+      return { message: 'failed to delete category item' };
+    }
+  }
 }
