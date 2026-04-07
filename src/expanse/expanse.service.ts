@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { BigQueryService } from '../db/bigQuery/bigquery.service';
 import { UuidService } from '../utils/uuid/uuid.service';
+import { RedisService } from '../redis/redis.service';
 
 @Injectable()
 export class ExpanseService {
@@ -12,6 +13,7 @@ export class ExpanseService {
     private configService: ConfigService,
     private bigQueryService: BigQueryService,
     private uuidService: UuidService,
+    private redisService: RedisService,
   ) {}
 
   async getMonthExpanses(
@@ -19,6 +21,16 @@ export class ExpanseService {
     firstDayOfMonthDate: string,
     lastDayOfMonthDate: string,
   ) {
+    // Create cache key
+    const cacheKey = `month_expanses:${userId}:${firstDayOfMonthDate}:${lastDayOfMonthDate}`;
+
+    // Try to get from cache first
+    const cachedResult = await this.redisService.get(cacheKey);
+    if (cachedResult) {
+      console.log('Returning cached month expanses');
+      return cachedResult;
+    }
+
     const query =
       `SELECT ROW_NUMBER() OVER() AS id, e.category_id, c.name AS categoryName, e.expanse_id, e.name, e.date, e.amount, e.card_name ` +
       `FROM ${this.projectId}.${this.projectName}.expanse e ` +
@@ -35,7 +47,12 @@ export class ExpanseService {
     };
 
     try {
-      return await this.bigQueryService.query(query, params);
+      const result = await this.bigQueryService.query(query, params);
+
+      // Cache the result for 5 minutes (300 seconds)
+      await this.redisService.set(cacheKey, result, 300);
+
+      return result;
     } catch (error) {
       console.log(error);
       return [];

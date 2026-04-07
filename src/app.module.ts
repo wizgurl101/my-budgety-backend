@@ -9,6 +9,7 @@ import { MonthlyBudgetModule } from './monthlyBudget/monthlyBudget.module';
 import { GamesSpentAmountModule } from './gamesSpentAmount/gamesSpentAmount.module';
 import { CategoryItemModule } from './categoryItem/categoryItem.module';
 import { SubCategoryModule } from './subcategory/subcategory.module';
+import { RedisModule } from './redis/redis.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { SubCategoryModule } from './subcategory/subcategory.module';
       isGlobal: true,
       ignoreEnvFile: true,
     }),
+    RedisModule,
     CategoryModule,
     KeywordModule,
     ExpanseModule,
