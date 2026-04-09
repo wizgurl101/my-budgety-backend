@@ -27,6 +27,7 @@ $ npm run start
 ## API Documentation
 
 ### Run the project
+
 ```bash
 $ npm run start
 ```
@@ -34,28 +35,33 @@ $ npm run start
 ## Dev Setup with Docker
 
 ### Login with Google Credentials
+
 ```bash
     gcloud auth application-default login
 ```
+
 ### Go to app.module.ts
+
 ```Javascript
     ConfigModule.forRoot({
     isGlobal: true,
     ignoreEnvFile: true,
 })
 ```
-So that Docker will use the environment variables during runtime.
 
+So that Docker will use the environment variables during runtime.
 
 Upon successful login, the path to the service account name json will be displayed in the terminal. Copy the path to be stored in GOOGLE_APPLICATION_CREDENTIALS environment variable.
 
 ### Build the image
+
 ```bash
     docker build --no-cache -t my-budgety-api .
 ```
 
 ### Run the image
-```bash     
+
+```bash
 docker run -d \
   -p 5000:5000 \
   -e PROJECT_ID={project-id} \
@@ -67,6 +73,7 @@ docker run -d \
 ```
 
 ### If having issues, use this command to access the container shell
+
 ```bash
   docker exec -it {container-name} sh
 ```
@@ -77,32 +84,30 @@ docker run -d \
 
 If there is issue connecting to Google Cloud Service when running the app locally (using npm run start)
 
-### Go to app.module.ts 
+### Go to app.module.ts
+
 ```Javascript
     ConfigModule.forRoot({
     isGlobal: true,
     ignoreEnvFile: false,
 })
 ```
+
 Make sure ignoreEnvFile is set to false. This was set to true when using docker.
 
 ### Make sure the path to the service account name json is correct in the .env file
+
 On Windows, use / in the path
 
 ---
 
 ## Swagger UI for the Endpoints
+
 ### Open the browser and go to the following URL: http://localhost:5000/api-doc
 
 ## How to run the tests
 
 ```bash
 # unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+$ npm run tests
 ```
