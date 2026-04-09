@@ -104,7 +104,7 @@ export class ExpanseService {
 
       const result = await this.bigQueryService.query(query, params);
       const total = result[0]?.total || 0;
-      await this.cacheManager.set(cacheKey, `${total}`);
+      await this.cacheManager.set(cacheKey, total);
       return result;
     } catch (error) {
       console.log(error);
