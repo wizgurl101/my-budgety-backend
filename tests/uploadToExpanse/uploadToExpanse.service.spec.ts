@@ -11,6 +11,7 @@ import { ExpanseService } from '../../src/expanse/expanse.service';
 import { CsvExpanse } from '../../src/uploadToExpanse/interface/csvExpanse.interface';
 import { Category } from '../../src/category/interfaces/category.interface';
 import { MISC_CATEGORY_NAME } from '../../src/category/constants/category.tablenames';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
 
 describe('UploadToExpanseService', () => {
   let uploadToExpanseService: UploadToExpanseService;
@@ -75,6 +76,12 @@ describe('UploadToExpanseService', () => {
           provide: ExpanseService,
           useValue: {
             create: jest.fn(),
+          },
+        },
+        {
+          provide: CACHE_MANAGER,
+          useValue: {
+            del: jest.fn(),
           },
         },
       ],
@@ -147,6 +154,12 @@ describe('UploadToExpanseService', () => {
           provide: ExpanseService,
           useValue: {
             create: jest.fn(),
+          },
+        },
+        {
+          provide: CACHE_MANAGER,
+          useValue: {
+            del: jest.fn(),
           },
         },
       ],
@@ -255,6 +268,12 @@ describe('UploadToExpanseService', () => {
           provide: ExpanseService,
           useValue: {
             create: jest.fn(),
+          },
+        },
+        {
+          provide: CACHE_MANAGER,
+          useValue: {
+            del: jest.fn(),
           },
         },
       ],

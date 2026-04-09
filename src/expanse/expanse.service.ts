@@ -1,7 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { CACHE_MANAGER, Cache } from '@nestjs/cache-manager';
 import { BigQueryService } from '../db/bigQuery/bigquery.service';
 import { UuidService } from '../utils/uuid/uuid.service';
+import { MONTHTOTAL } from '../constants/cacheManager.constants';
 
 @Injectable()
 export class ExpanseService {
@@ -12,6 +14,7 @@ export class ExpanseService {
     private configService: ConfigService,
     private bigQueryService: BigQueryService,
     private uuidService: UuidService,
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
   async getMonthExpanses(
@@ -92,8 +95,18 @@ export class ExpanseService {
       lastDayOfMonth_Date: lastDayOfMonthDate,
     };
 
+    const cacheKey = `${MONTHTOTAL}_${userId}`;
+
     try {
-      return await this.bigQueryService.query(query, params);
+      const cachedTotalResult = await this.cacheManager.get(cacheKey);
+      if (cachedTotalResult) {
+        return [{ total: cachedTotalResult }];
+      }
+
+      const result = await this.bigQueryService.query(query, params);
+      const total = result[0]?.total || 0;
+      await this.cacheManager.set(cacheKey, total);
+      return result;
     } catch (error) {
       console.log(error);
       return [];
@@ -106,6 +119,7 @@ export class ExpanseService {
     name: string,
     amount: number,
     cardName: string,
+    userId: string,
   ) {
     const expanseId = this.uuidService.generate();
     const query =
@@ -124,6 +138,10 @@ export class ExpanseService {
 
     try {
       await this.bigQueryService.query(query, params);
+
+      const cacheKey = `${MONTHTOTAL}_${userId}`;
+      await this.cacheManager.del(cacheKey);
+
       return { message: 'new expanse added' };
     } catch (error) {
       console.log(error);
@@ -138,6 +156,7 @@ export class ExpanseService {
     name: string,
     amount: number,
     cardName: string,
+    userId: string,
   ) {
     const query =
       `UPDATE ${this.projectId}.${this.projectName}.expanse ` +
@@ -154,6 +173,10 @@ export class ExpanseService {
 
     try {
       await this.bigQueryService.query(query, params);
+
+      const cacheKey = `${MONTHTOTAL}_${userId}`;
+      await this.cacheManager.del(cacheKey);
+
       return { message: 'expanse updated' };
     } catch (error) {
       console.log(error);
@@ -161,7 +184,7 @@ export class ExpanseService {
     }
   }
 
-  async delete(expenseId: string) {
+  async delete(expenseId: string, userId: string) {
     const query =
       `DELETE FROM ${this.projectId}.${this.projectName}.expanse ` +
       `WHERE expanse_id = @expanse_id`;
@@ -172,6 +195,10 @@ export class ExpanseService {
 
     try {
       await this.bigQueryService.query(query, params);
+
+      const cacheKey = `${MONTHTOTAL}_${userId}`;
+      await this.cacheManager.del(cacheKey);
+
       return { message: 'expanse deleted' };
     } catch (error) {
       console.log(error);

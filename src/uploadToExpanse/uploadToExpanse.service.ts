@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Inject } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { BigQueryService } from '../db/bigQuery/bigquery.service';
 import { FileUtilsService } from '../utils/fileUtils/fileUtils.service';
@@ -8,6 +8,8 @@ import { ExpanseService } from '../expanse/expanse.service';
 import { Category } from '../category/interfaces/category.interface';
 import { CsvExpanse } from './interface/csvExpanse.interface';
 import { MISC_CATEGORY_NAME } from '../category/constants/category.tablenames';
+import { CACHE_MANAGER, Cache } from '@nestjs/cache-manager';
+import { MONTHTOTAL } from '../constants/cacheManager.constants';
 
 @Injectable()
 export class UploadToExpanseService {
@@ -21,6 +23,7 @@ export class UploadToExpanseService {
     private categoryService: CategoryService,
     private dateUtilsService: DateUtilsService,
     private expanseService: ExpanseService,
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
   public SortCsvDataByCategory(
@@ -84,9 +87,13 @@ export class UploadToExpanseService {
             expanse.name.toLowerCase(),
             expanse.amount,
             cardName.toLowerCase(),
+            userId,
           );
         }
       }
+
+      const cacheKey = `${MONTHTOTAL}_${userId}`;
+      await this.cacheManager.del(cacheKey);
 
       return { message: 'successfully upload csv data to expanse table' };
     } catch (error) {

@@ -34,8 +34,16 @@ export class ExpanseController {
     @Body('name') name: string,
     @Body('amount') amount: number,
     @Body('cardName') cardName: string,
+    @Body('userId') userId: string,
   ) {
-    return this.expanseService.create(categoryId, date, name, amount, cardName);
+    return this.expanseService.create(
+      categoryId,
+      date,
+      name,
+      amount,
+      cardName,
+      userId,
+    );
   }
 
   @Put(':id')
@@ -46,6 +54,7 @@ export class ExpanseController {
     @Body('updatedName') updatedName: string,
     @Body('updatedAmount') updatedAmount: number,
     @Body('updatedCardName') updatedCardName: string,
+    @Body('userId') userId: string,
   ) {
     return this.expanseService.update(
       expanseId,
@@ -54,12 +63,13 @@ export class ExpanseController {
       updatedName,
       updatedAmount,
       updatedCardName,
+      userId,
     );
   }
 
   @Delete(':id')
-  async delete(@Param('id') expanseId: string) {
-    return this.expanseService.delete(expanseId);
+  async delete(@Param('id') expanseId: string, @Body('userId') userId: string) {
+    return this.expanseService.delete(expanseId, userId);
   }
 
   @Get('monthTotal')
