@@ -99,11 +99,12 @@ export class ExpanseService {
     try {
       const cachedTotalResult = await this.cacheManager.get(cacheKey);
       if (cachedTotalResult) {
-        return cachedTotalResult;
+        return [{ total: cachedTotalResult }];
       }
 
       const result = await this.bigQueryService.query(query, params);
-      await this.cacheManager.set(cacheKey, `${result}`);
+      const total = result[0]?.total || 0;
+      await this.cacheManager.set(cacheKey, `${total}`);
       return result;
     } catch (error) {
       console.log(error);

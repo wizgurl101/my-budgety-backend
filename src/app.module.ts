@@ -10,6 +10,7 @@ import { MonthlyBudgetModule } from './monthlyBudget/monthlyBudget.module';
 import { GamesSpentAmountModule } from './gamesSpentAmount/gamesSpentAmount.module';
 import { CategoryItemModule } from './categoryItem/categoryItem.module';
 import { SubCategoryModule } from './subcategory/subcategory.module';
+import { CacheManagerModule } from './cacheManager/cacheManager.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { SubCategoryModule } from './subcategory/subcategory.module';
     GamesSpentAmountModule,
     CategoryItemModule,
     SubCategoryModule,
+    CacheManagerModule,
   ],
 })
 export class AppModule {}
