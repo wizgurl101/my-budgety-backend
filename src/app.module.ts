@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { CacheModule } from '@nestjs/cache-manager';
 import { ConfigModule } from '@nestjs/config';
 import { CategoryModule } from './category/category.module';
 import { KeywordModule } from './keyword/keyword.module';
@@ -15,6 +16,9 @@ import { SubCategoryModule } from './subcategory/subcategory.module';
     ConfigModule.forRoot({
       isGlobal: true,
       ignoreEnvFile: true,
+    }),
+    CacheModule.register({
+      isGlobal: true,
     }),
     CategoryModule,
     KeywordModule,

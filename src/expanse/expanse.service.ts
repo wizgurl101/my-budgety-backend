@@ -1,5 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import { CACHE_MANAGER, Cache } from '@nestjs/cache-manager';
 import { BigQueryService } from '../db/bigQuery/bigquery.service';
 import { UuidService } from '../utils/uuid/uuid.service';
 
@@ -12,6 +13,7 @@ export class ExpanseService {
     private configService: ConfigService,
     private bigQueryService: BigQueryService,
     private uuidService: UuidService,
+    @Inject(CACHE_MANAGER) private cacheManager: Cache,
   ) {}
 
   async getMonthExpanses(
@@ -92,8 +94,17 @@ export class ExpanseService {
       lastDayOfMonth_Date: lastDayOfMonthDate,
     };
 
+    const cacheKey = `monthTotal_${userId}`;
+
     try {
-      return await this.bigQueryService.query(query, params);
+      const cachedTotalResult = await this.cacheManager.get(cacheKey);
+      if (cachedTotalResult) {
+        return cachedTotalResult;
+      }
+
+      const result = await this.bigQueryService.query(query, params);
+      await this.cacheManager.set(cacheKey, `${result}`);
+      return result;
     } catch (error) {
       console.log(error);
       return [];
