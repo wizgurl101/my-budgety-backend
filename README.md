@@ -17,6 +17,10 @@ In addition, to help me learn and practice the NestJS framework and typescript.
 - PROJECT_ID="{unknown}"
 - PROJECT_NAME="{unknown}"
 
+### Setup the My Budgety Database locally
+
+Go to [My Budgety Database Documentation](MybudgetyDatabase.README.md)
+
 ## Compile and run project in dev mode
 
 ```bash
