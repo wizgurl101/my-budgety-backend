@@ -37,3 +37,9 @@ list all tables in a database
 ```bash
 postgres=# \dt
 ```
+
+show table schema
+
+```bash
+postgres=# \d table_name
+```
