@@ -11,7 +11,7 @@ In addition, to help me learn and practice the NestJS framework and Typescript.
 BigQuery was chosen. Open up opportunity to use Google AI tool to analyze my spending habits (for fun, maybe make AI chat for me to talk to about it).
 Schema I design for handling data extracted from my credit card statements.
 
-![demo](./biqquery_schema.png)
+![Demo](./biqquery_schema.png)
 
 ## Dev Setup
 
