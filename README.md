@@ -1,7 +1,5 @@
 # My Budgety API
 
-HELLO
-
 My Budgety API is my personal project to help me manage my monthly budget.
 This API serve the [My Budgety Web Admin Application](https://github.com/wizgurl101/my-budgety-admin-web-app)
 In addition, to help me learn and practice the NestJS framework and Typescript.
