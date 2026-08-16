@@ -20,7 +20,7 @@
     "test:e2e": "jest --config tests/jest-e2e.json"
   },
   "dependencies": {
-    "@google-cloud/bigquery": "^7.9.1",
+    "@google-cloud/bigquery": "^9.0.2",
     "@keyv/redis": "^5.1.6",
     "@nestjs/cache-manager": "^3.1.0",
     "@nestjs/common": "^11.2.1",
@@ -31,6 +31,7 @@
     "cache-manager": "^7.2.8",
     "csv-parser": "^3.0.0",
     "ioredis": "^5.10.1",
+    "js-yaml": "^5.3.0",
     "multer": "^2.2.0",
     "reflect-metadata": "^0.2.0",
     "rxjs": "^7.8.1",

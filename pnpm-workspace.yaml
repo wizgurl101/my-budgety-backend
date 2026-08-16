@@ -1,3 +1,6 @@
 allowBuilds:
   '@nestjs/core': false
   '@scarf/scarf': false
+
+overrides:
+  js-yaml: 5.3.0
