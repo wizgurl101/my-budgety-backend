@@ -32,7 +32,7 @@ Go to [My Budgety Database Documentation](MybudgetyDatabase.README.md)
 
 ```bash
 # development
-$ npm run start
+$ pnpm start
 ```
 
 ## API Documentation
@@ -40,7 +40,7 @@ $ npm run start
 ### Run the project
 
 ```bash
-$ npm run start
+$ pnpm start
 ```
 
 ## Dev Setup with Docker
@@ -93,7 +93,7 @@ docker run -d \
 
 ## Debugging Tips
 
-If there is issue connecting to Google Cloud Service when running the app locally (using npm run start)
+If there is issue connecting to Google Cloud Service when running the app locally (using pnpm start)
 
 ### Go to app.module.ts
 
@@ -120,5 +120,5 @@ On Windows, use / in the path
 
 ```bash
 # unit tests
-$ npm run tests
+$ pnpm tests
 ```
